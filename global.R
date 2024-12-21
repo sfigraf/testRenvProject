@@ -57,3 +57,6 @@ library(maptools) # for readShapePoints() and to write a kml file
 library(sf) # use instead of rgdal
 library(sp)
 library(ggplot2)
+
+library(renv)
+renv::init()

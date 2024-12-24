@@ -59,4 +59,4 @@ library(sp)
 library(ggplot2)
 
 library(renv)
-renv::init()
+#renv::init()

@@ -17,7 +17,7 @@
 library(foreign) # to read and write .dbf files
 
 # Set the directory:
-setwd("~/CPWOptimalSampling2/Ark_Optimal_Final")
+setwd("~/testRenvProject/")
 
 data <- read.csv("Input_Files/Cleaned_Data_include_dat_27Sept2024.csv", stringsAsFactors=F)
 

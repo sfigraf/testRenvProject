@@ -15,16 +15,16 @@
 
 
 ## Set directory:
-setwd("~/CPWOptimalSampling/Output_Files/8_SelectOASDsites")  # Fill in as appropriate
+setwd("~/testRenvProject/Output_Files/8_SelectOASDsites")  # Fill in as appropriate
 # setwd("~/ArkSelectSites")  # for server
 
 ## LIBRARIES:
 
 # the data and source functions -----------------------
-load("~/CPWOptimalSampling/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-load("~/CPWOptimalSampling/Output_Files/4_RunModels/ArkInSampleModels.RData")
-load("~/CPWOptimalSampling/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # load("ArkBalancedSites.RData")
-source("~/CPWOptimalSampling/Source_Files/ArkFunctions.R")
+load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
+load("~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # load("ArkBalancedSites.RData")
+source("~/testRenvProject/Source_Files/ArkFunctions.R")
 # load("ArkData.Rdata")
 # load("ArkInSampleModels.RData")
 # load("ArkBalancedSites.RData")

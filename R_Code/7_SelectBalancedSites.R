@@ -11,7 +11,7 @@
 ##ArkBalanceSites.RData
 
 ## Set directory:
-setwd("~/CPWOptimalSampling/Output_Files/7_SelectBalancedSites")  # Fill in as appropriate
+setwd("~/testRenvProject/Output_Files/7_SelectBalancedSites")  # Fill in as appropriate
 # setwd("~/ArkModels")  # for server
 
 
@@ -55,8 +55,8 @@ library(sf)
 
 
 ### Import the data and source functions -----------------------
-load("~/CPWOptimalSampling/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-source("~/CPWOptimalSampling/Source_Files/ArkFunctions.R")
+load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
 
 ## Use GRTS because of Basin characterics ------------

@@ -4,8 +4,8 @@ library(vcd)  # for better colors in plots
 library(reshape)  # for melt() function
 
 # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/ArkModels")  # Fill in as appropriate
-load("~/CPWOptimalSampling/Output_Files/4_RunModels/ArkInSampleModels.RData")
-source("~/CPWOptimalSampling/Source_Files/ArkFunctions.R")
+load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
+source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
 ## Best Model = MIDDLE-2
 mod.no <- 25
@@ -55,7 +55,7 @@ names(d.residsMedian)[3:4] <- c("deviance", "deviance.cut")
 
 ### Plots of residuals  -------------------------------
 
-setwd("~/CPWOptimalSampling/Output_Files/6_BestModelResidPlots")  # Fill in as appropriate
+setwd("~/testRenvProject/Output_Files/6_BestModelResidPlots")  # Fill in as appropriate
 
 # Summarize deviances for plotting.
 

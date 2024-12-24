@@ -10,7 +10,7 @@
 ##ArkModels.RData
 
 ## Set directory:
-setwd("~/CPWOptimalSampling/Source_Files")  # Fill in as appropriate
+setwd("~/testRenvProject/Source_Files")  # Fill in as appropriate
 # setwd("~/ArkModels")  # for server
 
 ## LIBRARIES:
@@ -21,8 +21,8 @@ library(verification)  # to calc AUC statistic (used in functions)
 
 
 ### Import the data and source functions -----------------------
-load("~/CPWOptimalSampling/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-source("~/CPWOptimalSampling/Source_Files/ArkFunctions.R")
+load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+source("~/testRenvProject/Source_Files/ArkFunctions.R")
 # load("~/ArkCrossVal/ArkData.RData")  # for server
 # source("~/ArkCrossVal/ArkFunctions.R")  # for server
 
@@ -168,7 +168,7 @@ set.seed(5000)
     #     out[[i]] <- jags(jags.data, jags.inits, params, 
     #                      models[[i]], nc, ni, nb, nt);
     cat("Mod ", i, "done!\n")
-  save.image("~/CPWOptimalSampling/Output_Files/4_RunModels/ArkInSampleModels.RData") # save often in case it crashes
+  save.image("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData") # save often in case it crashes
 }
 
 
@@ -181,7 +181,7 @@ set.seed(5000)
 # First, gets MCMC samples:
 #  --> Run all models
 # load("~/Dropbox/Fish_PostDoc/ArkansasR/ArkModels/ArkInSampleModels.RData")
-load("~/CPWOptimalSampling/Output_Files/4_RunModels/ArkInSampleModels.RData")
+load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
 # setwd("/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_bwa/Output_Files/")
 
 ## Calculate and output model selection for all five models
@@ -210,7 +210,7 @@ inSample.stats <- data.frame(Model=unlist(models)[24:28], modSelect.tab, score01
 inSample.stats$nDF <- nPsiList[24:nModels] + nDetList[24:nModels]
 # inSample.stats
 # inSample.stats[order(inSample.stats$nDF), ]
-write.csv(inSample.stats, "~/CPWOptimalSampling/Output_Files/4_RunModels/InSampleStats.csv", row.names=F)
+write.csv(inSample.stats, "~/testRenvProject/Output_Files/4_RunModels/InSampleStats.csv", row.names=F)
 
 # end of file. ---------------------------------------------------------
 

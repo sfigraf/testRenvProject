@@ -33,7 +33,7 @@ library(SDMTools) # to add scale bar to maps
 library(OpenStreetMap) # to get an underlying satellite image?
 
 # Set the directory to input files:
-setwd("~/CPWOptimalSampling2/Ark_Optimal_Final")
+setwd("~/testRenvProject/")
 
 ### STEP 1: Organize site-level info and covariates --------
 
@@ -671,7 +671,7 @@ sink()
 
 
 ### MAPS ---------------------------------------------
-setwd("~/CPWOptimalSampling2/Ark_Optimal_Final/ArcGIS_files/AsShapefiles")
+setwd("~/testRenvProject//ArcGIS_files/AsShapefiles")
 
 ## Read in the shapefiles:
 # CO.rg <- readOGR(".", "Colorado_Boundary")
@@ -730,7 +730,7 @@ proj4string(sites.sp) <- CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs 
 
 #plot(streams.rg, col="blue", lwd=2.0)
 #SG: had slighty change path
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/Sites.png", 
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/Sites.png", 
     width=1024, height=768)
 par(mar=c(0.01, 0.01, 0.01, 0.01))
 # plot(HUC.rg, col=gray(0.9), border=gray(0.9), mar=c(0.1, 0.1, 0.1, 0.1))
@@ -794,7 +794,7 @@ l4b = list("sp.text", c(696000, 4116000), "500", cex=0.8)
 # 1000 km of distance bar
 l5 = list("sp.text", c(746000, 4116000), "1000 km", cex=0.8)
 
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/elevations.png", 
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/elevations.png", 
     width=1024, height=768)
 
 # pts.1 <- list(l3, l4, l4b, l5,elev)
@@ -861,7 +861,7 @@ coordinates(all_sites.sp) <- c("UTMX", "UTMY")
 proj4string(all_sites.sp) <- CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")
 all_sites.sp$streamF <- as.factor(all_sites.sp$StreamSize)
 
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/streamsize.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/streamsize.png",
     width=1024, height=768)
 spplot(all_sites.sp["streamF"],
        # sp.layout=list(l3, l4, l4b, l5, elev),
@@ -874,21 +874,21 @@ dev.off()
 
 
 ## Maps of land cover covariates:
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/crops.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/crops.png",
     width=1024, height=768)
 spplot(all_sites.sp["CROPS"],
        # sp.layout=list(l3, l4, l4b, l5, elev),
        main=list(label="Proportion cropland", cex=1),
        colorkey=T, cex=1, par.settings=list(fontsize=list(text=36)))
 dev.off()
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/wetlands.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/wetlands.png",
     width=1024, height=768)
 spplot(all_sites.sp["WTLNDS"],
        sp.layout=list(l3, l4, l4b, l5, elev),
        main=list(label="Proportion wetlands", cex=1),
        colorkey=T, cex=1, par.settings=list(fontsize=list(text=36)))
 dev.off()
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/dvlpd.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/dvlpd.png",
     width=1024, height=768)
 spplot(all_sites.sp["DVLPD"],
        sp.layout=list(l3, l4, l4b, l5, elev),
@@ -897,7 +897,7 @@ spplot(all_sites.sp["DVLPD"],
 dev.off()
 
 ## Map of reservoir locations
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/reservoirs.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/reservoirs.png",
     width=1024, height=768)
 spplot(all_sites.sp["RESERVOIR"],
        sp.layout=list(l3, l4, l4b, l5, elev),
@@ -907,7 +907,7 @@ spplot(all_sites.sp["RESERVOIR"],
        par.settings=list(fontsize=list(text=36)))
 dev.off()
 ## Map of Fountain Creek
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/fountain.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/fountain.png",
     width=1024, height=768)
 spplot(all_sites.sp["FTN"],
        sp.layout=list(l3, l4, l4b, l5, elev),
@@ -917,7 +917,7 @@ spplot(all_sites.sp["FTN"],
        par.settings=list(fontsize=list(text=36)))
 dev.off()
 ## Map of Purgatoire R
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/purgatoire.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/purgatoire.png",
     width=1024, height=768)
 spplot(all_sites.sp["PURG"],
        sp.layout=list(l3, l4, l4b, l5, elev),
@@ -927,7 +927,7 @@ spplot(all_sites.sp["PURG"],
        par.settings=list(fontsize=list(text=36)))
 dev.off()
 ## Map of Main Stem
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/mainstem.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/mainstem.png",
     width=1024, height=768)
 spplot(all_sites.sp["MAIN"],
        sp.layout=list(l3, l4, l4b, l5, elev),
@@ -937,7 +937,7 @@ spplot(all_sites.sp["MAIN"],
        par.settings=list(fontsize=list(text=36)))
 dev.off()
 ## Map of CONNECT vs UNCONNECT streams
-png("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/CONNECT.png",
+png("~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/CONNECT.png",
     width=1024, height=768)
 spplot(all_sites.sp["UNCONNECT"], bty="n",
        sp.layout=list(l3, l4, l4b, l5, elev),
@@ -951,7 +951,7 @@ rm(all_sites.sp)
 
 
 ### FIGURES ----------------------------------------------
-setwd("~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/")
+setwd("~/testRenvProject//Output_Files/2_OrganizeNewData/")
 
 # Histogram of day-of-year when sampling took place:
 hist(SampOccasions$yday, xlab="Day-of-year") #  xaxt="n", 
@@ -1134,7 +1134,7 @@ nPasses.out <- data.frame(WaterName, Date, UTMX, nPasses.df)
 
 # getwd()
 # setwd("/Volumes/CPW_Work/Optimum Sampling/Ark_Sampling_bwa_test/EDA")
-write.csv(nPasses.out, "~/CPWOptimalSampling2/Ark_Optimal_Final/Output_Files/2_OrganizeNewData/EDA/nPassesPerSampOcc.csv", row.names = F)
+write.csv(nPasses.out, "~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/nPassesPerSampOcc.csv", row.names = F)
 #
 
 # end of file. -----------------------------

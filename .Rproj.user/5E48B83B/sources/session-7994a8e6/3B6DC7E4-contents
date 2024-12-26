@@ -1,0 +1,99 @@
+load("~/testRenvProject/Output_Files/8_SelectOASDsites/ArkAllSiteSelections.RData")
+
+
+
+cl <- makeCluster(nStarts)
+registerDoParallel(cl)
+
+for (yr in 1:nYears) {
+  qAll[[yr]] <- vector(length = nReps * nStarts)
+  SitesAll[[yr]] <- array(NA, dim = c(nReps * nStarts, nAdd))
+  
+  for (j in 1:nReps) {
+    
+    # in the og loop this is where clusters are made
+    set.seed(216 + j * 10 + yr * 100)
+    
+    
+    qListTmp <- foreach(s = 1:nStarts, .packages = 'boot') %dorng% {
+      # tmp.q <- numeric(nRandom)
+      # tmpIndex <- vector("list", nRandom)
+      tmpIndex <- list()
+      tmp.q <- vector(length=nRandom)
+      # Precompute random indices and q values
+      for (i in 1:nRandom) {
+        tmpIndex[[i]] <- c(204, 299, 499, 598, 302, 144, 574, 214, 76, 584) #sample(1:nAllSites, nAdd, replace = FALSE)
+        tmp.q[i] <- sum(rowSums(calc_q(
+          repSppIndices, mod, 
+          AllSitesOccuProbs, AllSurveysDetectProbs,
+          nAllSites, 
+          c(extraSitesIndex, unlist(tmpIndex[[i]])),
+          nSurveys = nSurveys, nMCMC = nMCMC
+        )))
+        # sum(apply(calc_q(repSppIndices, mod, 
+        #                  AllSitesOccuProbs, AllSurveysDetectProbs,
+        #                  nAllSites, 
+        #                  c(extraSitesIndex, unlist(tmpIndex[[i]])),
+        #                  nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+      }
+      
+      # Find the best initial site
+      min_q <- min(tmp.q)
+      qIndex <- which.min(tmp.q)
+      previousIndex <- tmpIndex[[qIndex]]
+      
+      allIndices <- matrix(unlist(previousIndex), nrow = 1)
+      all.q <- min_q
+      
+      # Iteratively improve
+      prev_q <- 0
+      nIter <- 0
+      while (prev_q != min_q) {
+        prev_q <- min_q
+        nIter <- nIter + 1
+        
+        for (k in seq_len(nAdd)) {
+          optimalIndex <- previousIndex
+          nbor.q <- numeric(nNbors + 1)
+          nbor.q[1] <- min_q
+          
+          for (j in seq_len(nNbors)) {
+            optimalIndex[k] <- nbors[previousIndex[k], j + 1]
+            new_q <- calc_q(repSppIndices, mod, AllSitesOccuProbs, AllSurveysDetectProbs,
+                            nAllSites, c(extraSitesIndex, optimalIndex),
+                            nSurveys, nMCMC)
+            nbor.q[j + 1] <- sum(rowSums(new_q))
+          }
+          
+          min_q <- min(nbor.q)
+          previousIndex[k] <- nbors[previousIndex[k], which.min(nbor.q)]
+        }
+        
+        allIndices <- rbind(allIndices, previousIndex)
+        all.q <- c(all.q, min_q)
+      }
+      
+      list(all.q = all.q, allIndices = allIndices, min.q = min_q, bestSites = previousIndex)
+    }
+    
+    # Aggregate results
+    qTmp <- sapply(qListTmp, `[[`, "min.q")
+    bestSitesTmp <- do.call(rbind, lapply(qListTmp, `[[`, "bestSites"))
+    qAll[[yr]][(j - 1) * nStarts + seq_len(nStarts)] <- qTmp
+    SitesAll[[yr]][(j - 1) * nStarts + seq_len(nStarts), ] <- bestSitesTmp
+    
+    cat("Rep ", j, " completed\n")
+  }
+  
+  min.qInd <- which.min(qAll[[yr]])
+  OASD.qInd[yr] <- min.qInd
+  OASDq[yr] <- qAll[[yr]][min.qInd]
+  OASDsites[yr, ] <- SitesAll[[yr]][min.qInd, ]
+  
+  extraSitesIndex <- c(extraSitesIndex, OASDsites[yr, ])
+  cat("Year ", yr, " completed\n")
+  
+  save.image("~/ArkAllSiteSelections.RData")
+}
+
+stopCluster(cl)

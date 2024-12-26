@@ -11,16 +11,16 @@
 ##ArkBalanceSites.RData
 
 ## Set directory:
-setwd("~/CPWOptimalSampling/Output_Files/7_SelectBalancedSites")  # Fill in as appropriate
+setwd("~/testRenvProject/Output_Files/7_SelectBalancedSites")  # Fill in as appropriate
 # setwd("~/ArkModels")  # for server
 
 
 #remotes::install_version("spsurvey", version = "3.3", repos = "http://cran.us.r-project.org")
 #SG: this is just bc i downloaded the package locally
 #still need dependencies below though
-install.packages("C:/Users/graffs.NATURENET.001/Downloads/spsurvey_3.3.tar.gz", repos = NULL, type = "source")
+#install.packages("C:/Users/graffs.NATURENET.001/Downloads/spsurvey_3.3.tar.gz", repos = NULL, type = "source")
 
-detach("package:foreign", unload=TRUE)
+#detach("package:foreign", unload=TRUE)
 
 ## LIBRARIES:
 # library(fields)  # for cover.designs() function
@@ -55,8 +55,8 @@ library(sf)
 
 
 ### Import the data and source functions -----------------------
-load("~/CPWOptimalSampling/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-source("~/CPWOptimalSampling/Source_Files/ArkFunctions.R")
+load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
 
 ## Use GRTS because of Basin characterics ------------

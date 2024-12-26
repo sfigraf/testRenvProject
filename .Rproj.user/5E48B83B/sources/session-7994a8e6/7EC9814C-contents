@@ -2,7 +2,7 @@
 # Run cross-validation on MSOMs
 
 
-setwd("~/CPWOptimalSampling/Source_Files")  # Fill in as appropriate
+setwd("~/testRenvProject/Source_Files")  # Fill in as appropriate
 # setwd("~/ArkCrossVal")
 
 ### Required packages:
@@ -20,8 +20,8 @@ library(matrixStats)
 # registerDoParallel(cl)
 
 ### Import the data and source functions -----------------------
-load("~/CPWOptimalSampling/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-source("~/CPWOptimalSampling/Source_Files/ArkFunctions.R")
+load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
 
 
@@ -185,7 +185,7 @@ for (fold in 1:n.folds){
      cat("Mod ", i, "done!\n")
   }
 #  return(out)
-  save.image("~/CPWOptimalSampling/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
+  save.image("~/testRenvProject/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
   
   # Process the output:
   for (i in 24:nModels) {  
@@ -207,13 +207,13 @@ for (fold in 1:n.folds){
     write.table(t(c(paste("fold", fold, sep=""), 
                     paste("mod", i, sep=""), 
                     cv.stats[fold, i, ])), 
-                "~/CPWOptimalSampling/Output_Files/3_RunCrossVal/CrossValStats2.csv", append=T, sep=",", 
+                "~/testRenvProject/Output_Files/3_RunCrossVal/CrossValStats2.csv", append=T, sep=",", 
                 row.names=FALSE, col.names=FALSE)
   }
   out.list[[i]] <- out
 }
 
-save.image("~/CPWOptimalSampling/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
+save.image("~/testRenvProject/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
 
 
 ### ------------------
@@ -224,7 +224,7 @@ save.image("~/CPWOptimalSampling/Output_Files/3_RunCrossVal/CrossValProbs2.RData
 ### And Summarize: ------------------------
 
 # Cross-val stats are from saved .csv file.
-crossVal.df <- read.csv("~/CPWOptimalSampling/Output_Files/3_RunCrossVal/CrossValStats2.csv", header=F)
+crossVal.df <- read.csv("~/testRenvProject/Output_Files/3_RunCrossVal/CrossValStats2.csv", header=F)
 ### Table of CV values for all folds and all models: (Table C.1 in Appendix C)
 # head(crossVal.df)
 
@@ -234,7 +234,7 @@ names(crossVal.means)[2:5] <- c("score01", "deviance", "AUC", "Brier")
 # crossVal.means[order(crossVal.means$deviance), ]
 #
 
-write.csv(crossVal.means, "~/CPWOptimalSampling/Output_Files/3_RunCrossVal/CrossValMeans2.csv", row.names = F)
+write.csv(crossVal.means, "~/testRenvProject/Output_Files/3_RunCrossVal/CrossValMeans2.csv", row.names = F)
 #
 
 

@@ -178,78 +178,113 @@ for (yr in 1:nYears) {
   SitesAll[[yr]] <- array(NA, dim = c(nReps * nStarts, nAdd))
   
   for (j in 1:nReps) {
+    
+    # in the og loop this is where clusters are made
     set.seed(216 + j * 10 + yr * 100)
     
-    # Run parallel tasks
+    
     qListTmp <- foreach(s = 1:nStarts, .packages = 'boot') %dorng% {
-      tmp.q <- numeric(nRandom)
-      tmpIndex <- vector("list", nRandom)
-      
+      # tmp.q <- numeric(nRandom)
+      # tmpIndex <- vector("list", nRandom)
+      # Pick random set of sites to start with:
+      tmpIndex <- list()
+      tmp.q <- vector(length=nRandom)
       # Precompute random indices and q values
-      for (i in seq_len(nRandom)) {
-        tmpIndex[[i]] <- sample(1:nAllSites, nAdd, replace = FALSE)
-        tmp.q[i] <- sum(rowSums(calc_q(
-          repSppIndices, mod, AllSitesOccuProbs, AllSurveysDetectProbs,
-          nAllSites, c(extraSitesIndex, unlist(tmpIndex[[i]])),
-          nSurveys = nSurveys, nMCMC = nMCMC
-        )))
+      for (i in 1:nRandom) {
+        tmpIndex[[i]] <- sample(1:nAllSites, nAdd, replace = FALSE) #c(204, 299, 499, 598, 302, 144, 574, 214, 76, 584) #
+        ## Calculate q for starting set of sites:
+        tmp.q[i] <- sum(apply(calc_q(repSppIndices, mod, 
+                                     AllSitesOccuProbs, AllSurveysDetectProbs,
+                                     nAllSites, 
+                                     c(extraSitesIndex, unlist(tmpIndex[[i]])),
+                                     nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+        # sum(apply(calc_q(repSppIndices, mod, 
+        #                  AllSitesOccuProbs, AllSurveysDetectProbs,
+        #                  nAllSites, 
+        #                  c(extraSitesIndex, unlist(tmpIndex[[i]])),
+        #                  nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+        print(i)
       }
       
-      # Find the best initial site
-      min_q <- min(tmp.q)
-      qIndex <- which.min(tmp.q)
+      
+      # new_q <- min(tmp.q)
+      # qIndex <- which(tmp.q == new_q)[1]
+      # previousIndex <- tmpIndex[[qIndex]]
+      # 
+      # allIndices <- matrix(unlist(previousIndex), nrow = 1)
+      # all.q <- new_q
+      
+      ##OG functoin
+      new_q <- min(tmp.q)
+      qIndex <- which(tmp.q == new_q)[1]
+      allIndices <- tmpIndex[[qIndex]]
+      all.q <- new_q
+      
+      prev_q <- 0  # to start the while loop
       previousIndex <- tmpIndex[[qIndex]]
+      nIter <- 0  # keep track of how many it loops through the sites
+      print(nIter)
       
-      allIndices <- matrix(unlist(previousIndex), nrow = 1)
-      all.q <- min_q
-      
-      # Iteratively improve
-      prev_q <- 0
-      nIter <- 0
-      while (prev_q != min_q) {
-        prev_q <- min_q
+      # prev_q <- 0
+      # nIter <- 0
+      #SG: not sure why ther's a while loop here in the first place
+      #if prev_q just immeditaely gets set to new_q...it's not iterating then right?
+      while (prev_q != new_q) {
+        prev_q <- new_q
         nIter <- nIter + 1
         
-        for (k in seq_len(nAdd)) {
+        for (k in 1:nAdd) {
           optimalIndex <- previousIndex
-          nbor.q <- numeric(nNbors + 1)
-          nbor.q[1] <- min_q
           
-          for (j in seq_len(nNbors)) {
+          nbor.q <- vector(length=dim(nbors)[2])
+          #nbor.q <- numeric(nNbors + 1)
+          nbor.q[1] <- new_q
+          print(paste("k value:", k))
+          for (j in 1:nNbors) {
             optimalIndex[k] <- nbors[previousIndex[k], j + 1]
-            new_q <- calc_q(repSppIndices, mod, AllSitesOccuProbs, AllSurveysDetectProbs,
+            ## Calculate q with sampling for new sites
+            
+            new.q <- calc_q(repSppIndices, mod, AllSitesOccuProbs, AllSurveysDetectProbs,
                             nAllSites, c(extraSitesIndex, optimalIndex),
-                            nSurveys, nMCMC)
-            nbor.q[j + 1] <- sum(rowSums(new_q))
+                            nSurveys, nMCMC=nMCMC)
+            nbor.q[j+1] <- sum(apply(new.q, 1, sum) )
+            # nbor.q[j + 1] <- sum(rowSums(new_q))
+            print(paste("nNbors number: ", j))
           }
           
-          min_q <- min(nbor.q)
-          previousIndex[k] <- nbors[previousIndex[k], which.min(nbor.q)]
+          new_q <- min(nbor.q)
+          previousIndex[k] <- nbors[previousIndex[k], which(nbor.q == new_q)[1]]
+          
+          #previousIndex[k] <- nbors[previousIndex[k], which.min(nbor.q)]
         }
         
         allIndices <- rbind(allIndices, previousIndex)
-        all.q <- c(all.q, min_q)
+        all.q <- c(all.q, new_q)
       }
-      
-      list(all.q = all.q, allIndices = allIndices, min.q = min_q, bestSites = previousIndex)
+      #SG: confused on what happens to this list: just for displaying?
+      #not saved in a variable
+      list(all.q = all.q, allIndices = allIndices, 
+           min.q = new_q, bestSites = previousIndex)
     }
     
-    # Aggregate results
-    qTmp <- sapply(qListTmp, `[[`, "min.q")
-    bestSitesTmp <- do.call(rbind, lapply(qListTmp, `[[`, "bestSites"))
-    qAll[[yr]][(j - 1) * nStarts + seq_len(nStarts)] <- qTmp
-    SitesAll[[yr]][(j - 1) * nStarts + seq_len(nStarts), ] <- bestSitesTmp
-    
-    cat("Rep ", j, " completed\n")
+    qTmp <- list()
+    for (s in 1:nStarts){
+      print(paste("S value", s))
+      qTmp[[s]] <- qListTmp[[s]]$min.q
+      SitesAll[[yr]][(j*nStarts - nStarts + 1):(j*nStarts), ][s, ] <- 
+        unlist(qListTmp[[s]]$bestSites)
+    }
+    qAll[[yr]][(j*nStarts - nStarts + 1):(j*nStarts)] <- unlist(qTmp)
+    cat("Rep ", j, "completed \n")
   }
   
-  min.qInd <- which.min(qAll[[yr]])
+  min.qInd <- which(qAll[[yr]] == min(qAll[[yr]]))[1]
   OASD.qInd[yr] <- min.qInd
   OASDq[yr] <- qAll[[yr]][min.qInd]
   OASDsites[yr, ] <- SitesAll[[yr]][min.qInd, ]
   
   extraSitesIndex <- c(extraSitesIndex, OASDsites[yr, ])
-  cat("Year ", yr, " completed\n")
+  cat("Year ", yr, "completed \n") 
   
   save.image("~/ArkAllSiteSelections.RData")
 }

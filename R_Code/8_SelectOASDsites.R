@@ -21,13 +21,13 @@ setwd("~/testRenvProject/Output_Files/8_SelectOASDsites")  # Fill in as appropri
 ## LIBRARIES:
 
 # the data and source functions -----------------------
-load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
-load("~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # load("ArkBalancedSites.RData")
+base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
+base::load("~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # base::load("ArkBalancedSites.RData")
 source("~/testRenvProject/Source_Files/ArkFunctions.R")
-# load("ArkData.Rdata")
-# load("ArkInSampleModels.RData")
-# load("ArkBalancedSites.RData")
+# base::load("ArkData.Rdata")
+# base::load("ArkInSampleModels.RData")
+# base::load("ArkBalancedSites.RData")
 # source("ArkFunctions.R")
 
 mod.no <- 25
@@ -286,7 +286,7 @@ for (yr in 1:nYears) {
   extraSitesIndex <- c(extraSitesIndex, OASDsites[yr, ])
   cat("Year ", yr, "completed \n") 
   
-  save.image("~/ArkAllSiteSelections.RData")
+  #save.image("~/ArkAllSiteSelections.RData")
 }
 
 stopCluster(cl)

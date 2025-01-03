@@ -1,0 +1,8 @@
+"0","start_time <- Sys.time()"
+"0","print(""Script 1"")"
+"1","[1]"
+"1"," ""Script 1"""
+"1","
+"
+"0","source(""R_Code/1_Ark_OrgSampOccForExport.R"")"
+"0","end_time <- Sys.time()"

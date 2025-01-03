@@ -1,0 +1,38 @@
+---
+title: "rmdTestDoc"
+output: html_document
+date: "2025-01-02"
+---
+
+```{r setup, include=FALSE, echo=TRUE}
+library(renv)
+start_time <- Sys.time()
+gcinfo(TRUE)
+source("global.R")
+end_time <- Sys.time()
+```
+#### `r paste("Reading in libraries took", round(difftime(end_time, start_time, units = "mins"),2), "minutes.")`
+
+```{r Script1, include=FALSE, echo=TRUE}
+start_time <- Sys.time()
+print("Script 1")
+
+source("R_Code/1_Ark_OrgSampOccForExport.R")
+#base::save.image("ArkData111.Rdata")
+end_time <- Sys.time()
+```
+#### `r paste("Script 1 took", round(difftime(end_time, start_time, units = "mins"),2), "minutes.")`
+
+
+```{r Script2, include=FALSE, echo=TRUE}
+start_time <- Sys.time()
+print("Script 2")
+rm(list = ls())
+#base::load("ArkData111.Rdata")
+source("R_Code/2_Ark_OrganizeDataNew.R")
+end_time <- Sys.time()
+
+```
+#### `r paste("Script 2 took", round(difftime(end_time, start_time, units = "mins"),2), "minutes.")`
+
+

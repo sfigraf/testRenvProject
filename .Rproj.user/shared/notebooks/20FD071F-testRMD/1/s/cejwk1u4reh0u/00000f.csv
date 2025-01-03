@@ -1,0 +1,40 @@
+"0","start_time <- Sys.time()"
+"0","print(""Script 7"")"
+"1","[1]"
+"1"," ""Script 7"""
+"1","
+"
+"0","source(""R_Code/7_SelectBalancedSites.R"")"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","rgeos version: 0.6-4, (SVN revision 699)
+ GEOS runtime version: 3.12.2-CAPI-1.18.2 
+ Please note that rgeos will be retired during October 2023,
+plan transition to sf or terra functions using GEOS at your earliest convenience.
+See https://r-spatial.org/r/2023/05/15/evolution4.html for details.
+ GEOS using OverlayNG
+ Linking to sp version: 2.1-4 
+ Polygon checking: TRUE 
+
+"
+"2","
+Version 4.1.0 of the spsurvey package was loaded successfully.
+
+"
+"2","
+Attaching package: ‘spsurvey’
+
+"
+"2","The following object is masked from ‘package:foreign’:
+
+    read.dbf
+
+"
+"2","Error in eval(ei, envir) : object 'pred_sites' not found
+"

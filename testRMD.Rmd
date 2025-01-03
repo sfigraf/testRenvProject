@@ -6,6 +6,7 @@ date: "2024-12-26"
 
 ```{r setup, include=FALSE, echo=TRUE}
 start_time <- Sys.time()
+library(renv)
 gcinfo(TRUE)
 source("global.R")
 end_time <- Sys.time()

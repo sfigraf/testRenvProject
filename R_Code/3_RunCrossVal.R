@@ -6,12 +6,12 @@ setwd("~/testRenvProject/Source_Files")  # Fill in as appropriate
 # setwd("~/ArkCrossVal")
 
 ### Required packages:
-library(animation)  # for kfcv function
-library(boot)  # for logit functions
-library(R2jags)  # to run the models. needs to have Jags downloaded on cmputer. 
-library(mcmcplots)  # to check model convergence
-library(verification)  # to calc AUC statistic (used in functions)
-library(matrixStats)
+# library(animation)  # for kfcv function
+# library(boot)  # for logit functions
+# library(R2jags)  # to run the models. needs to have Jags downloaded on cmputer. 
+# library(mcmcplots)  # to check model convergence
+# library(verification)  # to calc AUC statistic (used in functions)
+# library(matrixStats)
 
 # library(doParallel)  # to run folds in parallel
 # library(foreach)  # to run folds in parallel
@@ -20,8 +20,8 @@ library(matrixStats)
 # registerDoParallel(cl)
 
 ### Import the data and source functions -----------------------
-load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-source("~/testRenvProject/Source_Files/ArkFunctions.R")
+#base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+#source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
 
 
@@ -185,7 +185,7 @@ for (fold in 1:n.folds){
      cat("Mod ", i, "done!\n")
   }
 #  return(out)
-  save.image("~/testRenvProject/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
+  #save.image("~/testRenvProject/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
   
   # Process the output:
   for (i in 24:nModels) {  
@@ -213,7 +213,7 @@ for (fold in 1:n.folds){
   out.list[[i]] <- out
 }
 
-save.image("~/testRenvProject/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
+#save.image("~/testRenvProject/Output_Files/3_RunCrossVal/CrossValProbs2.RData") # save often in case it crashes
 
 
 ### ------------------

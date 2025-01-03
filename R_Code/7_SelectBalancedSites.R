@@ -18,9 +18,9 @@ setwd("~/testRenvProject/Output_Files/7_SelectBalancedSites")  # Fill in as appr
 #remotes::install_version("spsurvey", version = "3.3", repos = "http://cran.us.r-project.org")
 #SG: this is just bc i downloaded the package locally
 #still need dependencies below though
-install.packages("C:/Users/graffs.NATURENET.001/Downloads/spsurvey_3.3.tar.gz", repos = NULL, type = "source")
+#install.packages("C:/Users/graffs.NATURENET.001/Downloads/spsurvey_3.3.tar.gz", repos = NULL, type = "source")
 
-detach("package:foreign", unload=TRUE)
+#detach("package:foreign", unload=TRUE)
 
 ## LIBRARIES:
 # library(fields)  # for cover.designs() function
@@ -55,8 +55,9 @@ library(sf)
 
 
 ### Import the data and source functions -----------------------
-load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-source("~/testRenvProject/Source_Files/ArkFunctions.R")
+#SG: not loading .rdata bc it doesn't work as well in Rmarkdown. if all scripts ran in succession, shouldn't be a need to call .Rdata files
+#base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+# source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
 
 ## Use GRTS because of Basin characterics ------------
@@ -85,7 +86,7 @@ sf_obj <- st_as_sf(predSites.sp)
 st_write(sf_obj, "predSites_shp.shp")
 
 # Read the shapefile for att in the grts function
-att <- read.dbf("predSites_shp.dbf")
+att <- foreign::read.dbf("predSites_shp.dbf")
 # study_area <- st_read("predSites_shp.dbf")
 
 set.seed(2016)
@@ -120,8 +121,10 @@ points(Panelsites@coords[, 1], Panelsites@coords[, 2],
        col=as.factor(Panelsites$panel), pch=16, cex=1.5)
 BalancedSites <- subset(Panelsites, panel != "OverSamp")
 BalancedSites <- Panelsites
-save(BalancedSites, file="ArkBalancedSites.RData")
-
+#SG: This should be saved as a rds file instead of .Rdata
+saveRDS(BalancedSites, file="ArkBalancedSites.rds")
+# save(BalancedSites, file="~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData")
+#BalancedSites <- readRDS("Source_Files/ArkBalancedSites.rds")
 # summary(BalancedSites@data$pointid)
 # summary(AllSites$pointid)
 # str(BalancedSites)

@@ -4,8 +4,9 @@ library(vcd)  # for better colors in plots
 library(reshape)  # for melt() function
 
 # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/ArkModels")  # Fill in as appropriate
-load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
-source("~/testRenvProject/Source_Files/ArkFunctions.R")
+#SG: not loading .rdata bc it doesn't work as well in Rmarkdown. if all scripts ran in succession, shouldn't be a need to call .Rdata files
+# base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
+#source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
 ## Best Model = MIDDLE-2
 mod.no <- 25

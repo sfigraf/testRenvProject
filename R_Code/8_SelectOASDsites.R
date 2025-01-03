@@ -21,15 +21,15 @@ setwd("~/testRenvProject/Output_Files/8_SelectOASDsites")  # Fill in as appropri
 ## LIBRARIES:
 
 # the data and source functions -----------------------
-base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
-base::load("~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # base::load("ArkBalancedSites.RData")
-source("~/testRenvProject/Source_Files/ArkFunctions.R")
+# base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+# base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
+# base::load("~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # base::load("ArkBalancedSites.RData")
+#source("~/testRenvProject/Source_Files/ArkFunctions.R")
 # base::load("ArkData.Rdata")
 # base::load("ArkInSampleModels.RData")
 # base::load("ArkBalancedSites.RData")
 # source("ArkFunctions.R")
-
+#highest ranked model
 mod.no <- 25
 mod <- out[[mod.no]]
 rm(out)  # keep more workspace memory available
@@ -90,7 +90,9 @@ nAdd <- 10  # how many OASD sites do we want to sample each year?
 #number of times to repeat the algorithm to get closer to optimal
 #SG: I have 12 cores, gonna try with just 2 though
 ( nStarts <- detectCores() / 2 )  # 8/2 = 4
+#works with 2 nStarts, gonna try 8
 nStarts <- 2
+
 nReps <- 2
 # actual no. of times to repeat alg is nStarts * nReps
 # nStarts = how many in parallel
@@ -170,7 +172,7 @@ qAll <- list()
 SitesAll <- list()
 
 # Setup parallel backend once outside the loops
-cl <- makeCluster(nStarts)
+cl <- makeCluster(nStarts, outfile = "")
 registerDoParallel(cl)
 
 for (yr in 1:nYears) {
@@ -386,31 +388,32 @@ stopCluster(cl)
 #   save.image("~/ArkAllSiteSelections.RData")
 # }
 
-# save.image("~/ArkAllSiteSelections.RData")
-
-## plot and export chosen sites --------------------------------
-newsites2016 <- AllSites[SitesAll[[1]][5, ], ]
-newsites2016b <- AllSites[SitesAll[[1]][6, ], ]
-newsites2017 <- AllSites[OASDsites[2, ], ]
-newsites2018 <- AllSites[OASDsites[3, ], ]
-png("Ark_AllFutureSamplingLocations.png",  
-    width=1024, height=768)
-par(mfrow=c(1,1))
-with(all_sites, plot(UTMX, UTMY, pch=16, col="gray", yaxt="n", xaxt="n"))
-# add locations already sampled:
-points(sites$UTMX, sites$UTMY, pch=16, col=grey(0.4))
-## And add in new OASD sites:
-points(newsites2016$UTMX, newsites2016$UTMY, pch=8, cex=1.5, col=1)
-points(newsites2017$UTMX, newsites2017$UTMY, pch=8, cex=1.5, col="red")
-points(newsites2018$UTMX, newsites2018$UTMY, pch=8, cex=1.5, col="cyan")
-## And add GRTS sites:
-with(subset(BalancedSites@data, panel=="Year1"), 
-     points(xcoord, ycoord, col=1, pch=16, cex=1.5))
-with(subset(BalancedSites@data, panel=="Year2"), 
-     points(xcoord, ycoord, col="red", pch=16, cex=1.5))
-with(subset(BalancedSites@data, panel=="Year3"), 
-     points(xcoord, ycoord,  col="cyan", pch=16, cex=1.5))
-dev.off()
+#save.image("~/ArkAllSiteSelections2NStarts.RData")
+#base::load("~/testRenvProject/Output_Files/8_SelectOASDsites/ArkAllSiteSelections.RData")
+# x <- SitesAll[[1]]
+# ## plot and export chosen sites --------------------------------
+# newsites2016 <- AllSites[SitesAll[[1]][1, ], ]
+# newsites2016b <- AllSites[SitesAll[[1]][2, ], ]
+# newsites2017 <- AllSites[OASDsites[2, ], ]
+# newsites2018 <- AllSites[OASDsites[3, ], ]
+# png("Ark_AllFutureSamplingLocations.png",  
+#     width=1024, height=768)
+# par(mfrow=c(1,1))
+# with(all_sites, plot(UTMX, UTMY, pch=16, col="gray", yaxt="n", xaxt="n"))
+# # add locations already sampled:
+# points(sites$UTMX, sites$UTMY, pch=16, col=grey(0.4))
+# ## And add in new OASD sites:
+# points(newsites2016$UTMX, newsites2016$UTMY, pch=8, cex=1.5, col=1)
+# points(newsites2017$UTMX, newsites2017$UTMY, pch=8, cex=1.5, col="red")
+# points(newsites2018$UTMX, newsites2018$UTMY, pch=8, cex=1.5, col="cyan")
+# ## And add GRTS sites:
+# with(subset(BalancedSites@data, panel=="Year1"), 
+#      points(xcoord, ycoord, col=1, pch=16, cex=1.5))
+# with(subset(BalancedSites@data, panel=="Year2"), 
+#      points(xcoord, ycoord, col="red", pch=16, cex=1.5))
+# with(subset(BalancedSites@data, panel=="Year3"), 
+#      points(xcoord, ycoord,  col="cyan", pch=16, cex=1.5))
+# dev.off()
 
 #(more plotting and output exporting in "ArkPlotFutureSites.R" file)
 

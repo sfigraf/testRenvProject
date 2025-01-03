@@ -10,20 +10,21 @@
 ##ArkModels.RData
 
 ## Set directory:
-setwd("~/testRenvProject/Source_Files")  # Fill in as appropriate
+setwd("~/testRenvProject/")  # Fill in as appropriate
 # setwd("~/ArkModels")  # for server
 
 ## LIBRARIES:
-library(boot)  # for logit functions
-library(R2jags)  # to run the models
-library(mcmcplots)  # to check model convergence
-library(verification)  # to calc AUC statistic (used in functions)
+# library(boot)  # for logit functions
+# library(R2jags)  # to run the models
+# library(mcmcplots)  # to check model convergence
+# library(verification)  # to calc AUC statistic (used in functions)
 
 
 ### Import the data and source functions -----------------------
-load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-source("~/testRenvProject/Source_Files/ArkFunctions.R")
-# load("~/ArkCrossVal/ArkData.RData")  # for server
+
+#base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+#source("~/testRenvProject/Source_Files/ArkFunctions.R")
+# base::load("~/ArkCrossVal/ArkData.RData")  # for server
 # source("~/ArkCrossVal/ArkFunctions.R")  # for server
 
 ### Covariate objects cheat sheet ---------------------
@@ -115,37 +116,37 @@ nt= 10 # 10  # 100
 
 # Create list of model files:
 models <- list()
-models[[1]] <- "JAGS_models/KnownSppMSOM.Full.JAGS.R"
-models[[2]] <- "JAGS_models/KnownSppMSOM.FullOccu.JAGS.R"
-models[[3]] <- "JAGS_models/KnownSppMSOM.FullOccu2.JAGS.R"
-models[[4]] <- "JAGS_models/KnownSppMSOM.NoCorrs.JAGS.R"
-models[[5]] <- "JAGS_models/KnownSppMSOM.LandCoverSize.JAGS.R"
-models[[6]] <- "JAGS_models/KnownSppMSOM.MyGuess.JAGS.R"
-models[[7]] <- "JAGS_models/KnownSppMSOM.Reservoirs.JAGS.R"
-models[[8]] <- "JAGS_models/KnownSppMSOM.Stream.JAGS.R"
-models[[9]] <- "JAGS_models/KnownSppMSOM.Size.JAGS.R"
-models[[10]] <- "JAGS_models/KnownSppMSOM.NoCorrs2.JAGS.R"
-models[[11]] <- "JAGS_models/KnownSppMSOM.Combined2.JAGS.R"
+models[[1]] <- "Source_Files/JAGS_models/KnownSppMSOM.Full.JAGS.R"
+models[[2]] <- "Source_Files/JAGS_models/KnownSppMSOM.FullOccu.JAGS.R"
+models[[3]] <- "Source_Files/JAGS_models/KnownSppMSOM.FullOccu2.JAGS.R"
+models[[4]] <- "Source_Files/JAGS_models/KnownSppMSOM.NoCorrs.JAGS.R"
+models[[5]] <- "Source_Files/JAGS_models/KnownSppMSOM.LandCoverSize.JAGS.R"
+models[[6]] <- "Source_Files/JAGS_models/KnownSppMSOM.MyGuess.JAGS.R"
+models[[7]] <- "Source_Files/JAGS_models/KnownSppMSOM.Reservoirs.JAGS.R"
+models[[8]] <- "Source_Files/JAGS_models/KnownSppMSOM.Stream.JAGS.R"
+models[[9]] <- "Source_Files/JAGS_models/KnownSppMSOM.Size.JAGS.R"
+models[[10]] <- "Source_Files/JAGS_models/KnownSppMSOM.NoCorrs2.JAGS.R"
+models[[11]] <- "Source_Files/JAGS_models/KnownSppMSOM.Combined2.JAGS.R"
 
-models[[12]] <- "JAGS_models/KnownSppMSOM.LandCoverSize.JAGS.R"
-models[[13]] <- "JAGS_models/KnownSppMSOM.AltSize.JAGS.R"
-models[[14]] <- "JAGS_models/KnownSppMSOM.AltStream.JAGS.R"
-models[[15]] <- "JAGS_models/KnownSppMSOM.SimpleSize.JAGS.R"
-models[[16]] <- "JAGS_models/KnownSppMSOM.SimpleSize2.JAGS.R"
-models[[17]] <- "JAGS_models/KnownSppMSOM.SimpleAltStream.JAGS.R"
-models[[18]] <- "JAGS_models/KnownSppMSOM.SimpleAltStream2.JAGS.R"
-models[[19]] <- "JAGS_models/KnownSppMSOM.SimpleLandCoverSize.JAGS.R"
-models[[20]] <- "JAGS_models/KnownSppMSOM.SimpleLandCoverSize2.JAGS.R"
+models[[12]] <- "Source_Files/JAGS_models/KnownSppMSOM.LandCoverSize.JAGS.R"
+models[[13]] <- "Source_Files/JAGS_models/KnownSppMSOM.AltSize.JAGS.R"
+models[[14]] <- "Source_Files/JAGS_models/KnownSppMSOM.AltStream.JAGS.R"
+models[[15]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSize.JAGS.R"
+models[[16]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSize2.JAGS.R"
+models[[17]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleAltStream.JAGS.R"
+models[[18]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleAltStream2.JAGS.R"
+models[[19]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleLandCoverSize.JAGS.R"
+models[[20]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleLandCoverSize2.JAGS.R"
 
-models[[21]] <- "JAGS_models/KnownSppMSOM.SimpleSizeCount.JAGS.R"
-models[[22]] <- "JAGS_models/KnownSppMSOM.SimpleSizeCountNoYear.JAGS.R"
-models[[23]] <- "JAGS_models/KnownSppMSOM.SimpleSize2.JAGS.R"
+models[[21]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSizeCount.JAGS.R"
+models[[22]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSizeCountNoYear.JAGS.R"
+models[[23]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSize2.JAGS.R"
 
-models[[24]] <- "JAGS_models/KnownSppMSOM.SimpleSizeCountNoYear.JAGS.R"
-models[[25]] <- "JAGS_models/KnownSppMSOM.SimpleSize2noYr.JAGS.R"
-models[[26]] <- "JAGS_models/KnownSppMSOM.SimpleSizeNoYr.JAGS.R"
-models[[27]] <- "JAGS_models/KnownSppMSOM.SimpleAltStream2noYr.JAGS.R"
-models[[28]] <- "JAGS_models/KnownSppMSOM.SimpleSizeNoYrConnect.JAGS.R"
+models[[24]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSizeCountNoYear.JAGS.R"
+models[[25]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSize2noYr.JAGS.R"
+models[[26]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSizeNoYr.JAGS.R"
+models[[27]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleAltStream2noYr.JAGS.R"
+models[[28]] <- "Source_Files/JAGS_models/KnownSppMSOM.SimpleSizeNoYrConnect.JAGS.R"
 
 
 ### Fit Models!  ---------------------------------
@@ -159,16 +160,16 @@ out <- list()
 score01 <- vector(length=nModels)
 
 for (i in 24:nModels){
-    nPsiCoef <- nPsiList[[i]]  # elev + intecept
-    nDetCoef <- nDetList[[i]] # year, elev
-set.seed(5000)
-    out[[i]] <- do.call(jags.parallel, list(jags.data, jags.inits, params, 
-                                            models[[i]],
-                                            nc, ni, nb, nt));
-    #     out[[i]] <- jags(jags.data, jags.inits, params, 
-    #                      models[[i]], nc, ni, nb, nt);
-    cat("Mod ", i, "done!\n")
-  save.image("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData") # save often in case it crashes
+  nPsiCoef <- nPsiList[[i]]  # elev + intecept
+  nDetCoef <- nDetList[[i]] # year, elev
+  set.seed(5000)
+  out[[i]] <- do.call(jags.parallel, list(jags.data, jags.inits, params, 
+                                          models[[i]],
+                                          nc, ni, nb, nt));
+  #     out[[i]] <- jags(jags.data, jags.inits, params, 
+  #                      models[[i]], nc, ni, nb, nt);
+  cat("Mod ", i, "done!\n")
+  #save.image("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData") # save often in case it crashes
 }
 
 
@@ -180,8 +181,8 @@ set.seed(5000)
 
 # First, gets MCMC samples:
 #  --> Run all models
-# load("~/Dropbox/Fish_PostDoc/ArkansasR/ArkModels/ArkInSampleModels.RData")
-load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
+# base::load("~/Dropbox/Fish_PostDoc/ArkansasR/ArkModels/ArkInSampleModels.RData")
+#base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
 # setwd("/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_bwa/Output_Files/")
 
 ## Calculate and output model selection for all five models
@@ -190,8 +191,8 @@ Probs <- list()
 
 for(i in 24:nModels){
   Probs[[i]] <- derivePsiDetect(out[[i]], 
-                                    expressPsi[[i]], expressDet[[i]],
-                                    nPossSpp, nSites, nSurveys)
+                                expressPsi[[i]], expressDet[[i]],
+                                nPossSpp, nSites, nSurveys)
   lik <- calcLik(Probs[[i]], Y, nMCMC=out[[i]]$BUGSoutput$n.sims, 
                  nSites=nSites, nSpp=nPossSpp)
   waic.out[[i]] <- waic.cpo(lik, nMCMC=out[[i]]$BUGSoutput$n.sims)
@@ -211,6 +212,6 @@ inSample.stats$nDF <- nPsiList[24:nModels] + nDetList[24:nModels]
 # inSample.stats
 # inSample.stats[order(inSample.stats$nDF), ]
 write.csv(inSample.stats, "~/testRenvProject/Output_Files/4_RunModels/InSampleStats.csv", row.names=F)
-
+write.csv(mtcars, "~/testRenvProject/Output_Files/4_RunModels/InSampleStats.csv", row.names=F)
 # end of file. ---------------------------------------------------------
 

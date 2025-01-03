@@ -10,8 +10,8 @@ library(xtable)  # easily export table to Latex
 library(RColorBrewer)  # to change palette for better readability
 # display.brewer.all()
 
-load("~/testRenvProject//Output_Files/4_RunModels/ArkInSampleModels.RData")
-setwd("~/testRenvProject//Output_Files/")
+# base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
+setwd("~/testRenvProject/Output_Files/")
 mod.no <- 25
 mod <- out[[mod.no]]
 nPsiCoef <- nPsiList[[mod.no]]
@@ -105,7 +105,7 @@ dev.off()
 
 # Maps for ALL species!!
 #set_col_regions(bpy.colors(100))
-png("~/testRenvProject//Output_Files/5_ModelResults/OccuProb_mapsALL_1.png",
+png("~/testRenvProject/Output_Files/5_ModelResults/OccuProb_mapsALL_1.png",
     width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps, 3:8, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
@@ -113,14 +113,14 @@ spplot(predmaps, 3:8, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3),
        col.regions = my.palette, cuts=9)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/OccuProb_mapsALL_2.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/OccuProb_mapsALL_2.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps, 9:14, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette, cuts=9)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/OccuProb_mapsALL_3.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/OccuProb_mapsALL_3.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps, 15:19, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
@@ -128,21 +128,21 @@ spplot(predmaps, 15:19, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3),
 dev.off()
 
 # SD Maps for ALL species!!
-png("~/testRenvProject//Output_Files/5_ModelResults/OccuProbSD_mapsALL_1.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/OccuProbSD_mapsALL_1.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps, 20:25, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette, cuts=9)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/OccuProbSD_mapsALL_2.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/OccuProbSD_mapsALL_2.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps, 26:31, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette, cuts=9)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/OccuProbSD_mapsALL_3.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/OccuProbSD_mapsALL_3.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps, 32:36, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
@@ -194,7 +194,7 @@ proj4string(predmaps.det) <- CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_d
 
 ### Create different DETECTION maps ------------------
 # Fig of Det Probs  5 rep spp + 1 undetected for main text:
-png("~/testRenvProject//Output_Files/5_ModelResults/DetProb_maps.png", 
+png("~/testRenvProject/Output_Files/5_ModelResults/DetProb_maps.png", 
     width=850, height=1024)
 spplot(predmaps.det, c("ARD_Detection", "LND_Detection", 
                        "SMM_Detection", "RCS_Detection"), 
@@ -209,21 +209,21 @@ dev.off()
 # dev.off()
 #
 # Maps for ALL species!!
-png("~/testRenvProject//Output_Files/5_ModelResults/DetProb_mapsALL_1.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/DetProb_mapsALL_1.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps.det, 3:8, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette[c(3, 5, 7, 8, 10)], cuts=4)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/DetProb_mapsALL_2.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/DetProb_mapsALL_2.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps.det, 9:14, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette[c(1, 2, 3, 5, 7, 8, 10)], cuts=6)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/DetProb_mapsALL_3.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/DetProb_mapsALL_3.png", width=850, height=1024)
 trellis.par.set(strip.background=list(col="gray80"))
 spplot(predmaps.det, 15:19, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
@@ -231,19 +231,19 @@ spplot(predmaps.det, 15:19, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3),
 dev.off()
 
 # SD Maps for ALL species!!
-png("~/testRenvProject//Output_Files/5_ModelResults/DetProbSD_mapsALL_1.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/DetProbSD_mapsALL_1.png", width=850, height=1024)
 spplot(predmaps.det, 20:25, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette[c(1, 2, 3, 5, 7)], cuts=4)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/DetProbSD_mapsALL_2.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/DetProbSD_mapsALL_2.png", width=850, height=1024)
 spplot(predmaps.det, 26:31, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette[c(1, 2, 3, 5, 7, 8)], cuts=4)
 dev.off()
 
-png("~/testRenvProject//Output_Files/5_ModelResults/DetProbSD_mapsALL_3.png", width=850, height=1024)
+png("~/testRenvProject/Output_Files/5_ModelResults/DetProbSD_mapsALL_3.png", width=850, height=1024)
 spplot(predmaps.det, 32:36, colorkey=T, as.table=T, cex=0.8, layout=c(2, 3), 
        par.settings=list(fontsize=list(text=26)),
        col.regions = my.palette[c(1, 2, 3, 5, 7, 8, 10)], cuts=6)
@@ -296,7 +296,7 @@ nativeNames <- c("Arkansas Darter", "Black Bullhead", "Central Stoneroller",
                  "White Sucker", "River Carpsucker")
 natives[17] <- "RCS"
 for(n in 1:length(natives)){
-  out.file <- paste("~/testRenvProject//Output_Files/5_ModelResults/", natives[n], "table.tex", sep="")
+  out.file <- paste("~/testRenvProject/Output_Files/5_ModelResults/", natives[n], "table.tex", sep="")
 
   psiCoef <- round(apply(mod$BUGSoutput$sims.list$psiCoef[, n, ],
                          2, mean), 2)  # n.saved X nPossSpp X nPsiCoef  
@@ -361,7 +361,7 @@ xtmp <- xtable(detOut,
                Streams of size 1 are lower order streams with lower flows, and 
                stream size 4 represents the main stem of the Arkansas River.",
                label="ExampleDetectProbs", auto=T)
-sink("~/testRenvProject//Output_Files/5_ModelResults/ExampleDetectProbsEF.tex")
+sink("~/testRenvProject/Output_Files/5_ModelResults/ExampleDetectProbsEF.tex")
 print(xtmp, include.rownames=F, caption.placement="top") 
 sink()
 

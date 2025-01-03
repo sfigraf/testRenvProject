@@ -21,16 +21,16 @@
 # Other output: EDA tables and figures
 
 ## LIBRARIES:
-library(foreign) # to read and write .dbf files
-library(xtable)  # to easily create LaTex tables
-library(RColorBrewer)  # for color choices
-library(ggplot2) # plotting functions
-library(sf) # new (2024) spatial data packages
-library(sp) # older spatial data packages
-library(SDMTools) # to add scale bar to maps
-#SG: needs rtools to install
-#install.packages('https://cran.r-project.org/src/contrib/Archive/SDMTools/SDMTools_1.1-221.2.tar.gz')
-library(OpenStreetMap) # to get an underlying satellite image?
+# library(foreign) # to read and write .dbf files
+# library(xtable)  # to easily create LaTex tables
+# library(RColorBrewer)  # for color choices
+# library(ggplot2) # plotting functions
+# library(sf) # new (2024) spatial data packages
+# library(sp) # older spatial data packages
+# library(SDMTools) # to add scale bar to maps
+# #SG: needs rtools to install
+# #install.packages('https://cran.r-project.org/src/contrib/Archive/SDMTools/SDMTools_1.1-221.2.tar.gz')
+# library(OpenStreetMap) # to get an underlying satellite image?
 
 # Set the directory to input files:
 setwd("~/testRenvProject/")
@@ -38,12 +38,12 @@ setwd("~/testRenvProject/")
 ### STEP 1: Organize site-level info and covariates --------
 
 ## Read in ArcGIS Stream Network info 
-streams <- read.dbf("Input_Files/SurveyDesignStreams.dbf")
+streams <- foreign::read.dbf("Input_Files/SurveyDesignStreams.dbf")
 # str(streams)
 ## Change INT/PER to more proper Connect/Unconnect
 streams$StreamType <- ifelse(streams$StreamType=="INT", "UNCONNECT", "CONNECT")
 
-stream_pts <- read.dbf("Input_Files/SurveyDesignStreamsAsPoints.dbf")
+stream_pts <- foreign::read.dbf("Input_Files/SurveyDesignStreamsAsPoints.dbf")
 # str(stream_pts)
 # Avoid name overlap with streams object
 stream_pts <- subset(stream_pts, select=-OBJECTID)
@@ -126,7 +126,7 @@ pred_sites <- all_sites[seq(1, nrow(all_sites), 100), ]
 #original 2016 snapped surveys
 #columns 20
 #
-snapped_sites <- read.dbf("Input_Files/snappedSurveys.dbf")
+snapped_sites <- foreign::read.dbf("Input_Files/snappedSurveys.dbf")
 
 ## After comparing data to stream network, need to edit one site's location:
 snapped_sites[snapped_sites$SurveyID==43945, "UTMX"] <- 620287
@@ -520,7 +520,7 @@ nSurveys <- sites$nSurveys
 # First remove extraneous objects:
 rm(streams, stream_pts)
 
-save.image("Output_Files/2_OrganizeNewData/ArkData.Rdata")
+#save.image("Output_Files/2_OrganizeNewData/ArkData.Rdata")
 #
 
 
@@ -671,7 +671,7 @@ sink()
 
 
 ### MAPS ---------------------------------------------
-setwd("~/testRenvProject//ArcGIS_files/AsShapefiles")
+setwd("~/testRenvProject/ArcGIS_files/AsShapefiles")
 
 ## Read in the shapefiles:
 # CO.rg <- readOGR(".", "Colorado_Boundary")
@@ -1134,7 +1134,7 @@ nPasses.out <- data.frame(WaterName, Date, UTMX, nPasses.df)
 
 # getwd()
 # setwd("/Volumes/CPW_Work/Optimum Sampling/Ark_Sampling_bwa_test/EDA")
-write.csv(nPasses.out, "~/testRenvProject//Output_Files/2_OrganizeNewData/EDA/nPassesPerSampOcc.csv", row.names = F)
+write.csv(nPasses.out, "~/testRenvProject/Output_Files/2_OrganizeNewData/EDA/nPassesPerSampOcc.csv", row.names = F)
 #
 
 # end of file. -----------------------------

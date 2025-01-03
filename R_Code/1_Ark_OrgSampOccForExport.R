@@ -14,10 +14,10 @@
 # IncludeSampOccasions.dbf goes into ArcGIS to get the snapped locations.
 
 # Libraries:
-library(foreign) # to read and write .dbf files
+#library(foreign) # to read and write .dbf files
 
 # Set the directory:
-setwd("~/testRenvProject/")
+#setwd("~/testRenvProject/")
 
 data <- read.csv("Input_Files/Cleaned_Data_include_dat_27Sept2024.csv", stringsAsFactors=F)
 
@@ -29,3 +29,6 @@ write.dbf(data, "Output_Files/1_OrgSampOccForExport/IncludedSampOccasions.dbf")
 # write.csv(data, "/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_bwa/Output_Files/Cleaned_Data_include_dat_25Sept2024.csv", row.names=F)
 
 # end of file. -----------------------------
+
+#base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+# base::save.image("ArkData111.Rdata")

@@ -7,16 +7,17 @@ library(sf) # use instead of rgdal
 library(sp)
 library(ggplot2)
 # plotKML is no loger available, it went away with rgdal
-# library(plotKML) # for "easier" conversion to kml file
+#library(plotKML) # for "easier" conversion to kml file
 # library(devtools)
 # install_github("envirometrix/plotKML") # install github version that ingegrates with sf
 #
 
 # Get sites "SelectOASDsites.R" output:
-# load("~/Desktop/Fish_PostDoc/ArkansasR/ArkSelectSites/ArkAllSiteSelections.RData")
+# base::load("~/Desktop/Fish_PostDoc/ArkansasR/ArkSelectSites/ArkAllSiteSelections.RData")
 # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/write_up/FutureSites/")
-load("/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_Final/Output_Files/8_SelectOASDsites/ArkAllSiteSelections.RData")
-setwd("/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_Final/Output_Files/9_ArkPlotFutureSites")
+#SG: not loading .rdata bc it doesn't work as well in Rmarkdown. if all scripts ran in succession, shouldn't be a need to call .Rdata files
+#base::load("~/testRenvProject/Output_Files/8_SelectOASDsites/ArkAllSiteSelections.RData")
+setwd("~/testRenvProject/Output_Files/9_ArkPlotFutureSites")
 
 # read_sf
 
@@ -177,7 +178,7 @@ allSampSites$SiteSource <- c(rep("balanced", 40), rep("optimal", 30))# rep(c("ba
 allSampSites$year <- c(rep(c(2016, 2017, 2018), each=10), rep("OVERSAMPLE", 10), 
                        rep(c(2016, 2017, 2018), each=10))
 write.csv(allSampSites, 
-          "Ark_FutureSamplingLocations.csv",
+          "Ark_FutureSamplingLocations2Nstarts_rmd.csv",
           row.names = FALSE)
 
 
@@ -189,47 +190,47 @@ write.csv(allSampSites,
 
 ## Check-out balanced sites in google Earth:
 # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/write_up/FutureSites/")
-ARKbalanced2016 <- subset(BalancedSites, panel=="Year1")# subset(balanced.spat, year==2016)
-ARKbalanced2016 <- SpatialPointsDataFrame(ARKbalanced2016@coords, ARKbalanced2016@data,
-  proj4string=CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
-
-ggplot(ARKbalanced2016, aes(x=data$coords[,1],y=data$coords[,2])) + 
-  geom_polygon() +
-  geom_path(color="gray")
-
-
-plotKML(ARKbalanced2016["geometry"], 
-        points_names="2016", 
-        colour_scale="#00FF00",  # lime
-        balloon=TRUE)
-ARKbalanced2017 <- subset(BalancedSites, panel=="Year2")# subset(balanced.spat, year==2017)
-ARKbalanced2017 <- SpatialPointsDataFrame(ARKbalanced2017@coords, ARKbalanced2017@data,
-   proj4string=CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
-plotKML(ARKbalanced2017, 
-        points_names="2017", 
-        colour_scale="#00FFFF", # aqua
-        balloon=TRUE)
-ARKbalanced2018 <- subset(BalancedSites, panel=="Year3")# subset(balanced.spat, year==2017)
-ARKbalanced2018 <- SpatialPointsDataFrame(ARKbalanced2018@coords, ARKbalanced2018@data,
-  proj4string=CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
-plotKML(ARKbalanced2018, 
-        points_names="2018", 
-        colour_scale="#FF00FF",
-        balloon=TRUE)
-
-## And add optimal sites to G. Earth:
-plotKML(optimal2016, file.name = "ARKoptimal2016.kml",
-        points_names="2016", 
-        colour_scale="#008000",  # green (=darker lime)
-        balloon=TRUE)
-plotKML(optimal2017, file.name = "ARKoptimal2017.kml",
-        points_names="2017", 
-        colour_scale="#008080",  # teal (=darker aqua)
-        balloon=TRUE)
-plotKML(optimal2018, file.name = "ARKoptimal2018.kml",
-        points_names="2018", 
-        colour_scale="#800080",  # purple (=darker fuchsia)
-        balloon=TRUE)
+# ARKbalanced2016 <- subset(BalancedSites, panel=="Year1")# subset(balanced.spat, year==2016)
+# ARKbalanced2016 <- SpatialPointsDataFrame(ARKbalanced2016@coords, ARKbalanced2016@data,
+#   proj4string=CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+# 
+# ggplot(ARKbalanced2016, aes(x=data$coords[,1],y=data$coords[,2])) + 
+#   geom_polygon() +
+#   geom_path(color="gray")
+# 
+# 
+# plotKML(ARKbalanced2016["geometry"], 
+#         points_names="2016", 
+#         colour_scale="#00FF00",  # lime
+#         balloon=TRUE)
+# ARKbalanced2017 <- subset(BalancedSites, panel=="Year2")# subset(balanced.spat, year==2017)
+# ARKbalanced2017 <- SpatialPointsDataFrame(ARKbalanced2017@coords, ARKbalanced2017@data,
+#    proj4string=CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+# plotKML(ARKbalanced2017, 
+#         points_names="2017", 
+#         colour_scale="#00FFFF", # aqua
+#         balloon=TRUE)
+# ARKbalanced2018 <- subset(BalancedSites, panel=="Year3")# subset(balanced.spat, year==2017)
+# ARKbalanced2018 <- SpatialPointsDataFrame(ARKbalanced2018@coords, ARKbalanced2018@data,
+#   proj4string=CRS("+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+# plotKML(ARKbalanced2018, 
+#         points_names="2018", 
+#         colour_scale="#FF00FF",
+#         balloon=TRUE)
+# 
+# ## And add optimal sites to G. Earth:
+# plotKML(optimal2016, file.name = "ARKoptimal2016.kml",
+#         points_names="2016", 
+#         colour_scale="#008000",  # green (=darker lime)
+#         balloon=TRUE)
+# plotKML(optimal2017, file.name = "ARKoptimal2017.kml",
+#         points_names="2017", 
+#         colour_scale="#008080",  # teal (=darker aqua)
+#         balloon=TRUE)
+# plotKML(optimal2018, file.name = "ARKoptimal2018.kml",
+#         points_names="2018", 
+#         colour_scale="#800080",  # purple (=darker fuchsia)
+#         balloon=TRUE)
 ## change point and label sizes inside of google earth.
 ## (R to kml functions don't work that well)
 
@@ -238,20 +239,21 @@ plotKML(optimal2018, file.name = "ARKoptimal2018.kml",
 
 ### ------------------------------
 ## Sites are sorta redundant... What happens if you scale back on redundant sites?
-OASDsites[newsites2016, ]
-round(iDist(OASDsites[newsites2016, c("x_coord", "y_coord")]))
-# rm site 10- very close to site 3 and 7
-OASDsites[newsites2016[-10], ]
-## q value with all 10 optimal sites:
-new.q <- calc_q(repSppIndices, mod, occu.mat, det.mat,
-                nPredSites, c(extraSitesIndex, newsites2016),
-                nSurveys, nMCMC=nMCMC)
-sum( apply(new.q, 1, sum) )  # 258.4468
-# q value without site 10
-new.q <- calc_q(repSppIndices, mod, occu.mat, det.mat,
-                nPredSites, c(extraSitesIndex, newsites2016[-c(1, 10)], 330, 300),
-                nSurveys, nMCMC=nMCMC)
-sum( apply(new.q, 1, sum) )  # 259.1267
+
+# OASDsites[newsites2016, ]
+# round(iDist(OASDsites[newsites2016, c("x_coord", "y_coord")]))
+# # rm site 10- very close to site 3 and 7
+# OASDsites[newsites2016[-10], ]
+# ## q value with all 10 optimal sites:
+# new.q <- calc_q(repSppIndices, mod, occu.mat, det.mat,
+#                 nPredSites, c(extraSitesIndex, newsites2016),
+#                 nSurveys, nMCMC=nMCMC)
+# sum( apply(new.q, 1, sum) )  # 258.4468
+# # q value without site 10
+# new.q <- calc_q(repSppIndices, mod, occu.mat, det.mat,
+#                 nPredSites, c(extraSitesIndex, newsites2016[-c(1, 10)], 330, 300),
+#                 nSurveys, nMCMC=nMCMC)
+# sum( apply(new.q, 1, sum) )  # 259.1267
 
 
 
@@ -260,67 +262,67 @@ sum( apply(new.q, 1, sum) )  # 259.1267
 ### Plot of Random Sampling vs OASD   ----------------------------
 
 # and for a random design search
-set.seed(2016)
-RandomSites2016 <- sample(1:nAllSites, nAdd, replace=T)
-random2016 <- sum(apply(calc_q(repSppIndices, mod, 
-                             AllSitesOccuProbs, AllSurveysDetectProbs,
-                             nAllSites, 
-                             c(extraSitesIndex[1:30], RandomSites2016),
-                             nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
-random2016  # 725.1816
-(random2016 / length(repSppIndices) ) / nAllSites  # 0.12996
-
-set.seed(2017)
-RandomSites2017 <- sample(1:nAllSites, nAdd, replace=T)
-random2017 <- sum(apply(calc_q(repSppIndices, mod, 
-                               AllSitesOccuProbs, AllSurveysDetectProbs,
-                               nAllSites, 
-                               c(extraSitesIndex[1:40], RandomSites2017),
-                               nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
-random2017  # 710.1885
-(random2017 / length(repSppIndices) ) / nAllSites  # 0.127
-###
-random2017b <- sum(apply(calc_q(repSppIndices, mod, 
-                               AllSitesOccuProbs, AllSurveysDetectProbs,
-                               nAllSites, 
-                               c(extraSitesIndex[1:30], RandomSites2016, RandomSites2017),
-                               nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
-random2017b  # 716.9112
-(random2017b / length(repSppIndices) ) / nAllSites  # 0.1285
-###
-set.seed(2018)
-RandomSites2018 <- sample(1:nAllSites, nAdd, replace=T)
-random2018 <- sum(apply(calc_q(repSppIndices, mod, 
-                               AllSitesOccuProbs, AllSurveysDetectProbs,
-                               nAllSites, 
-                               c(extraSitesIndex[1:50], RandomSites2018),
-                               nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
-random2018  # 703.5089
-(random2018 / length(repSppIndices) ) / nAllSites  # 0.126
-random2018b <- sum(apply(calc_q(repSppIndices, mod, 
-                               AllSitesOccuProbs, AllSurveysDetectProbs,
-                               nAllSites, 
-                               c(extraSitesIndex[1:30], RandomSites2016, 
-                                 RandomSites2017, RandomSites2018),
-                               nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
-random2018b  # 710.34
-(random2018b / length(repSppIndices) ) / nAllSites  # 0.127
-
-# setwd("~/Dropbox/Fish_PostDoc/ArkansasR/write_up/FutureSites/")
-
-pdf("CompareQ.pdf", height=5)
-par(mar=c(4, 4, 3, 1))
-plot(OASDq, xaxt="n", type="o", 
-     xlab="Number of additional sampling occasions", 
-     ylab="q(d)", las=1, ylim=c(690, 732), lwd=2,
-     main="q under different sampling schemes")
-points(c(random2016, random2017b, random2018b), 
-       type="b", lty=2, pch=8, lwd=3)
-mtext(c(10, 20, 30), 1, at=1:3, line=1)
-abline(h=high.q, col="gray", lwd=3, lty=4)
-legend(1, 700, c("Simple Random Sampling", "Optimal Sampling"),
-       lty=2:1, pch=c(8, 1), bty="n", lwd=2)
-dev.off()
+# set.seed(2016)
+# RandomSites2016 <- sample(1:nAllSites, nAdd, replace=T)
+# random2016 <- sum(apply(calc_q(repSppIndices, mod, 
+#                              AllSitesOccuProbs, AllSurveysDetectProbs,
+#                              nAllSites, 
+#                              c(extraSitesIndex[1:30], RandomSites2016),
+#                              nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+# random2016  # 725.1816
+# (random2016 / length(repSppIndices) ) / nAllSites  # 0.12996
+# 
+# set.seed(2017)
+# RandomSites2017 <- sample(1:nAllSites, nAdd, replace=T)
+# random2017 <- sum(apply(calc_q(repSppIndices, mod, 
+#                                AllSitesOccuProbs, AllSurveysDetectProbs,
+#                                nAllSites, 
+#                                c(extraSitesIndex[1:40], RandomSites2017),
+#                                nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+# random2017  # 710.1885
+# (random2017 / length(repSppIndices) ) / nAllSites  # 0.127
+# ###
+# random2017b <- sum(apply(calc_q(repSppIndices, mod, 
+#                                AllSitesOccuProbs, AllSurveysDetectProbs,
+#                                nAllSites, 
+#                                c(extraSitesIndex[1:30], RandomSites2016, RandomSites2017),
+#                                nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+# random2017b  # 716.9112
+# (random2017b / length(repSppIndices) ) / nAllSites  # 0.1285
+# ###
+# set.seed(2018)
+# RandomSites2018 <- sample(1:nAllSites, nAdd, replace=T)
+# random2018 <- sum(apply(calc_q(repSppIndices, mod, 
+#                                AllSitesOccuProbs, AllSurveysDetectProbs,
+#                                nAllSites, 
+#                                c(extraSitesIndex[1:50], RandomSites2018),
+#                                nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+# random2018  # 703.5089
+# (random2018 / length(repSppIndices) ) / nAllSites  # 0.126
+# random2018b <- sum(apply(calc_q(repSppIndices, mod, 
+#                                AllSitesOccuProbs, AllSurveysDetectProbs,
+#                                nAllSites, 
+#                                c(extraSitesIndex[1:30], RandomSites2016, 
+#                                  RandomSites2017, RandomSites2018),
+#                                nSurveys=nSurveys, nMCMC=nMCMC), 1, sum))
+# random2018b  # 710.34
+# (random2018b / length(repSppIndices) ) / nAllSites  # 0.127
+# 
+# # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/write_up/FutureSites/")
+# 
+# pdf("CompareQ.pdf", height=5)
+# par(mar=c(4, 4, 3, 1))
+# plot(OASDq, xaxt="n", type="o", 
+#      xlab="Number of additional sampling occasions", 
+#      ylab="q(d)", las=1, ylim=c(690, 732), lwd=2,
+#      main="q under different sampling schemes")
+# points(c(random2016, random2017b, random2018b), 
+#        type="b", lty=2, pch=8, lwd=3)
+# mtext(c(10, 20, 30), 1, at=1:3, line=1)
+# abline(h=high.q, col="gray", lwd=3, lty=4)
+# legend(1, 700, c("Simple Random Sampling", "Optimal Sampling"),
+#        lty=2:1, pch=c(8, 1), bty="n", lwd=2)
+# dev.off()
 #
 
 # end of file ------------------------------------

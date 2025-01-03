@@ -1,3 +1,6 @@
+#SOURCE FUNCTIONS
+source("~/testRenvProject/Source_Files/ArkFunctions.R")
+
 #SCRIPT 1
 library(foreign) 
 
@@ -49,7 +52,12 @@ library(sp)
 library(sf)
 
 #SCRIPT 8: none
-
+library(boot)  # for inv.logit function
+library(foreach)  # to run different starting values in parallel
+library(doParallel)
+library(spBayes)  # to make neighborhood matrices
+library(Matrix)  # to make 'hood matrix with resampled sites
+library(doRNG) 
 #SCRIPT 9
 library(maptools) # for readShapePoints() and to write a kml file
 #install.packages("C:/Users/graffs.NATURENET.001/Downloads/maptools_0.8-40.tar.gz", repos = NULL, type = "source")
@@ -58,5 +66,6 @@ library(sf) # use instead of rgdal
 library(sp)
 library(ggplot2)
 
-library(renv)
+#library(renv)
+#renv::activate()
 #renv::init()

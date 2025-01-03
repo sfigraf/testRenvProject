@@ -178,7 +178,7 @@ allSampSites$SiteSource <- c(rep("balanced", 40), rep("optimal", 30))# rep(c("ba
 allSampSites$year <- c(rep(c(2016, 2017, 2018), each=10), rep("OVERSAMPLE", 10), 
                        rep(c(2016, 2017, 2018), each=10))
 write.csv(allSampSites, 
-          "Ark_FutureSamplingLocations2Nstarts_rmd.csv",
+          "Ark_FutureSamplingLocations2Nstarts_scriptonly.csv",
           row.names = FALSE)
 
 

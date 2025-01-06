@@ -17,7 +17,7 @@ library(ggplot2)
 # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/write_up/FutureSites/")
 #SG: not loading .rdata bc it doesn't work as well in Rmarkdown. if all scripts ran in succession, shouldn't be a need to call .Rdata files
 #base::load("~/testRenvProject/Output_Files/8_SelectOASDsites/ArkAllSiteSelections.RData")
-setwd("~/testRenvProject/Output_Files/9_ArkPlotFutureSites")
+setwd(file.path(here(), "Output_Files/9_ArkPlotFutureSites"))
 
 # read_sf
 

@@ -4,6 +4,7 @@
 library(renv)
 library(here)
 #SOURCE FUNCTIONS
+start_time <- Sys.time()
 source(file.path(here(), "/Source_Files/ArkFunctions.R"))
 
 #SCRIPT 1
@@ -72,7 +73,8 @@ library(sf) # use instead of rgdal
 library(sp)
 library(ggplot2)
 
-print(paste("Reading in libraries took", round(difftime(end_time, start_time, units = "mins"),2), "minutes."))
+end_time <- Sys.time()
+print(paste("Reading in libraries took", round(difftime(end_time, start_time, units = "mins"), 2), "minutes."))
 
 
 # SCRIPTS -----------------------------------------------------------------

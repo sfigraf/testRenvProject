@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "out",
+        "query": "setwd",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": false,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 153,
+        "resultsCount": 38,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

@@ -11,7 +11,7 @@
 ##ArkBalanceSites.RData
 
 ## Set directory:
-setwd("~/testRenvProject/Output_Files/7_SelectBalancedSites")  # Fill in as appropriate
+setwd(file.path(here(), "Output_Files/7_SelectBalancedSites"))  # Fill in as appropriate
 # setwd("~/ArkModels")  # for server
 
 
@@ -34,7 +34,7 @@ setwd("~/testRenvProject/Output_Files/7_SelectBalancedSites")  # Fill in as appr
 # install old version of spsurvey
 # old dependencies for spsurvey
 #install.packages("Hmisc")
-"https://cran.r-project.org/src/contrib/Archive/Hmisc/Hmisc_3.17-4.tar.gz"
+#"https://cran.r-project.org/src/contrib/Archive/Hmisc/Hmisc_3.17-4.tar.gz"
 # geos_loc <- "/Volumes/CPW_Work/Old_R_packages/rgeos_0.6-4.tar.gz"
 # install.packages("/Volumes/CPW_Work/Old_R_packages/rgeos_0.6-4.tar.gz", repos=NULL, type="source")
 # # SG spot: 
@@ -55,7 +55,7 @@ library(sf)
 
 
 ### Import the data and source functions -----------------------
-#SG: not loading .rdata bc it doesn't work as well in Rmarkdown. if all scripts ran in succession, shouldn't be a need to call .Rdata files
+#SG: not loading .rdata bc it doesn't work as well in Rmarkdown. if needed .rdata files are instead called explicitly in Rmarkdown file
 #base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
 # source("~/testRenvProject/Source_Files/ArkFunctions.R")
 
@@ -121,9 +121,9 @@ points(Panelsites@coords[, 1], Panelsites@coords[, 2],
        col=as.factor(Panelsites$panel), pch=16, cex=1.5)
 BalancedSites <- subset(Panelsites, panel != "OverSamp")
 BalancedSites <- Panelsites
-#SG: This should be saved as a rds file instead of .Rdata
-saveRDS(BalancedSites, file="ArkBalancedSites.rds")
-# save(BalancedSites, file="~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData")
+#saveRDS(BalancedSites, file="ArkBalancedSites.rds")
+#this is saved in master RUnscript
+#save(BalancedSites, file=file.path(here(), "Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData"))
 #BalancedSites <- readRDS("Source_Files/ArkBalancedSites.rds")
 # summary(BalancedSites@data$pointid)
 # summary(AllSites$pointid)

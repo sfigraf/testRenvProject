@@ -15,7 +15,7 @@
 
 
 ## Set directory:
-setwd("~/testRenvProject/Output_Files/8_SelectOASDsites")  # Fill in as appropriate
+setwd(file.path(here(), "Output_Files/8_SelectOASDsites"))  # Fill in as appropriate
 # setwd("~/ArkSelectSites")  # for server
 
 ## LIBRARIES:
@@ -31,10 +31,10 @@ setwd("~/testRenvProject/Output_Files/8_SelectOASDsites")  # Fill in as appropri
 # source("ArkFunctions.R")
 
 ## nstarts
-#if ran from master script, that variable is defined there
+#if ran from master script, that variable is defined in global
 #otherwise define it here
 #nStarts <- 2
-print(nStarts)
+print(paste("nStarts:", nStarts))
 #highest ranked model
 mod.no <- 25
 mod <- out[[mod.no]]

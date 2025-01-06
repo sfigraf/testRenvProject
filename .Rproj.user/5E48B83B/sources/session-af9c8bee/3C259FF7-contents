@@ -33,7 +33,7 @@
 # library(OpenStreetMap) # to get an underlying satellite image?
 
 # Set the directory to input files:
-setwd("~/testRenvProject/")
+setwd(here())
 
 ### STEP 1: Organize site-level info and covariates --------
 
@@ -538,7 +538,7 @@ rm(streams, stream_pts)
 
 ### ---------------------------------------------------------------
 ### Exploratory Data Analysis (EDA) tables and figures of site and survey info ----------------
-setwd("Output_Files/2_OrganizeNewData/EDA")
+setwd(file.path(here(), "Output_Files/2_OrganizeNewData/EDA"))
 
 # nrow(surveys)  # 412
 # nrow(sites)  # 143
@@ -671,7 +671,7 @@ sink()
 
 
 ### MAPS ---------------------------------------------
-setwd("~/testRenvProject/ArcGIS_files/AsShapefiles")
+setwd(file.path(here(), "ArcGIS_files/AsShapefiles"))
 
 ## Read in the shapefiles:
 # CO.rg <- readOGR(".", "Colorado_Boundary")
@@ -951,7 +951,7 @@ rm(all_sites.sp)
 
 
 ### FIGURES ----------------------------------------------
-setwd("~/testRenvProject//Output_Files/2_OrganizeNewData/")
+setwd(file.path(here(), "Output_Files/2_OrganizeNewData/"))
 
 # Histogram of day-of-year when sampling took place:
 hist(SampOccasions$yday, xlab="Day-of-year") #  xaxt="n", 
@@ -1132,9 +1132,7 @@ nPasses.out <- data.frame(WaterName, Date, UTMX, nPasses.df)
 # head(nPass.wSurveyID)
 #
 
-# getwd()
-# setwd("/Volumes/CPW_Work/Optimum Sampling/Ark_Sampling_bwa_test/EDA")
-write.csv(nPasses.out, "~/testRenvProject/Output_Files/2_OrganizeNewData/EDA/nPassesPerSampOcc.csv", row.names = F)
+write.csv(nPasses.out, file.path(here(), "Output_Files/2_OrganizeNewData/EDA/nPassesPerSampOcc.csv"), row.names = F)
 #
 
 # end of file. -----------------------------

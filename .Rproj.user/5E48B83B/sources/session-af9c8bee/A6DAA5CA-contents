@@ -15,7 +15,7 @@
 
 
 ## Set directory:
-setwd("~/testRenvProject/Output_Files/8_SelectOASDsites")  # Fill in as appropriate
+setwd(file.path(here(), "Output_Files/8_SelectOASDsites"))  # Fill in as appropriate
 # setwd("~/ArkSelectSites")  # for server
 
 ## LIBRARIES:

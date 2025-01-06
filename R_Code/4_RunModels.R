@@ -10,7 +10,7 @@
 ##ArkModels.RData
 
 ## Set directory:
-setwd("~/testRenvProject/")  # Fill in as appropriate
+setwd(here())  # Fill in as appropriate
 # setwd("~/ArkModels")  # for server
 
 ## LIBRARIES:
@@ -211,7 +211,7 @@ inSample.stats <- data.frame(Model=unlist(models)[24:28], modSelect.tab, score01
 inSample.stats$nDF <- nPsiList[24:nModels] + nDetList[24:nModels]
 # inSample.stats
 # inSample.stats[order(inSample.stats$nDF), ]
-write.csv(inSample.stats, "~/testRenvProject/Output_Files/4_RunModels/InSampleStats.csv", row.names=F)
-write.csv(mtcars, "~/testRenvProject/Output_Files/4_RunModels/InSampleStats.csv", row.names=F)
+write.csv(inSample.stats, file.path(here(), "Output_Files/4_RunModels/InSampleStats.csv"), row.names=F)
+write.csv(mtcars, file.path(here(), "Output_Files/4_RunModels/InSampleStats.csv"), row.names=F)
 # end of file. ---------------------------------------------------------
 

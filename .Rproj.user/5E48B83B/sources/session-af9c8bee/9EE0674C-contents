@@ -56,7 +56,7 @@ names(d.residsMedian)[3:4] <- c("deviance", "deviance.cut")
 
 ### Plots of residuals  -------------------------------
 
-setwd("~/testRenvProject/Output_Files/6_BestModelResidPlots")  # Fill in as appropriate
+setwd(file.path(here(), "Output_Files/6_BestModelResidPlots"))  # Fill in as appropriate
 
 # Summarize deviances for plotting.
 

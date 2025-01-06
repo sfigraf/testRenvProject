@@ -82,7 +82,7 @@ print(paste("Reading in libraries took", round(difftime(end_time, start_time, un
 
 start_time <- Sys.time()
 print("Script 1")
-
+setwd(here())
 source(file.path(here(),"R_Code/1_Ark_OrgSampOccForExport.R"))
 end_time <- Sys.time()
 print(paste("Script 1 took", round(difftime(end_time, start_time, units = "mins"),2), "minutes."))
@@ -92,7 +92,7 @@ start_time <- Sys.time()
 print("Script 2")
 setwd(here())
 source(file.path(here(),"R_Code/2_Ark_OrganizeDataNew.R"))
-save.image("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+save.image(file.path(here(), "Output_Files/2_OrganizeNewData/ArkData.Rdata"))
 
 end_time <- Sys.time()
 
@@ -112,7 +112,7 @@ start_time <- Sys.time()
 print("Script 4")
 setwd(here())
 source(file.path(here(),"R_Code/4_RunModels.R"))
-save.image("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData") # save often in case it crashes
+save.image(file.path(here(), "Output_Files/4_RunModels/ArkInSampleModels.RData")) 
 
 end_time <- Sys.time()
 
@@ -138,7 +138,7 @@ start_time <- Sys.time()
 print("Script 7")
 setwd(here())
 source(file.path(here(),"R_Code/7_SelectBalancedSites.R"))
-save(BalancedSites, file="~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData")
+save(BalancedSites, file=file.path(here(), "Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData"))
 
 end_time <- Sys.time()
 
@@ -149,9 +149,9 @@ print("Script 8")
 
 setwd(here())
 rm(list = ls())
-base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
-base::load("~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # base::load("ArkBalancedSites.RData")
+base::load(file.path(here(), "Output_Files/2_OrganizeNewData/ArkData.Rdata"))
+base::load(file.path(here(), "Output_Files/4_RunModels/ArkInSampleModels.RData"))
+base::load(file.path(here(), "Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData")) # base::load("ArkBalancedSites.RData"))
 
 ###VARIABLES
 nStarts <- 2

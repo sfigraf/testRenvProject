@@ -1,15 +1,15 @@
 {
     "dialog-state": {
-        "query": "setwd",
+        "query": "\"~/testRenvProject/",
         "path": "",
         "regex": false,
         "caseSensitive": false,
-        "wholeWord": true,
+        "wholeWord": false,
         "filePatterns": [],
         "useGitGrep": false,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 38,
+        "resultsCount": 26,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

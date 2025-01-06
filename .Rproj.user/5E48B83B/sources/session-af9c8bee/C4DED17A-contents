@@ -1,0 +1,16 @@
+Ark_FutureSamplingLocations_Original <- read_csv("Ark_FutureSamplingLocations_Original.csv")
+Ark_FutureSamplingLocations2Nstarts_scriptonly <- read_csv("Ark_FutureSamplingLocations2Nstarts_scriptonly.csv")
+
+x <- all.equal(Ark_FutureSamplingLocations_Original, Ark_FutureSamplingLocations2Nstarts_scriptonly)
+x <- setdiff(Ark_FutureSamplingLocations_Original, Ark_FutureSamplingLocations2Nstarts_scriptonly)
+
+library(tidyverse)
+x1 <- left_join(Ark_FutureSamplingLocations_Original, Ark_FutureSamplingLocations2Nstarts_scriptonly, by = "SiteID")
+
+
+diffs <- Ark_FutureSamplingLocations_Original %>%
+  dplyr::anti_join(Ark_FutureSamplingLocations2Nstarts_scriptonly, by = "SiteID")
+
+length(unique(Ark_FutureSamplingLocations_Original$SiteID))
+x2 <- x1 %>%
+  select(sort(tidyselect::peek_vars()))

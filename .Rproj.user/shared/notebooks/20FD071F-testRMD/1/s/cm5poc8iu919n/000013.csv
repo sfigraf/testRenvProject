@@ -1,3 +1,179 @@
-"2","Warning: The working directory was changed to C:/Users/graffs.NATURENET.001/Documents/testRenvProject/Output_Files/2_OrganizeNewData inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks."
-"0","end_time <- Sys.time()"
-"0",""
+"0","start_time <- Sys.time()"
+"0","print(""Script 2"")"
+"1","[1]"
+"1"," ""Script 2"""
+"1","
+"
+"0","source(""R_Code/2_Ark_OrganizeDataNew.R"")"
+"2","Garbage collection 425 = 399"
+"2","+19"
+"2","+7"
+"2"," (level 0) ... "
+"2","
+172.4 Mbytes of cons cells used (57%)
+"
+"2","52.5 Mbytes of vectors used (68%)
+"
+"2","Garbage collection 426 = 400"
+"2","+19"
+"2","+7"
+"2"," (level 0) ... "
+"2","
+176.2 Mbytes of cons cells used (59%)
+"
+"2","69.7 Mbytes of vectors used (90%)
+"
+"2","Garbage collection 427 = 400"
+"2","+20"
+"2","+7"
+"2"," (level 1) ... "
+"2","
+172.3 Mbytes of cons cells used (57%)
+"
+"2","61.9 Mbytes of vectors used (80%)
+"
+"2","Garbage collection 428 = 400"
+"2","+20"
+"2","+8"
+"2"," (level 2) ... "
+"2","
+171.2 Mbytes of cons cells used (57%)
+"
+"2","67.6 Mbytes of vectors used (69%)
+"
+"2","Garbage collection 429 = 400"
+"2","+20"
+"2","+9"
+"2"," (level 2) ... "
+"2","
+173.8 Mbytes of cons cells used (58%)
+"
+"2","65.7 Mbytes of vectors used (56%)
+"
+"2","Warning: NAs introduced by coercion"
+"2","Garbage collection 430 = 401"
+"2","+20"
+"2","+9"
+"2"," (level 0) ... "
+"2","
+174.9 Mbytes of cons cells used (58%)
+"
+"2","69.5 Mbytes of vectors used (59%)
+"
+"2","Garbage collection 431 = 402"
+"2","+20"
+"2","+9"
+"2"," (level 0) ... "
+"2","
+178.2 Mbytes of cons cells used (59%)
+"
+"2","78.9 Mbytes of vectors used (67%)
+"
+"2","Garbage collection 432 = 403"
+"2","+20"
+"2","+9"
+"2"," (level 0) ... "
+"2","
+182.2 Mbytes of cons cells used (61%)
+"
+"2","88.6 Mbytes of vectors used (75%)
+"
+"2","Garbage collection 433 = 404"
+"2","+20"
+"2","+9"
+"2"," (level 0) ... "
+"2","
+190.7 Mbytes of cons cells used (64%)
+"
+"2","92.2 Mbytes of vectors used (78%)
+"
+"2","Garbage collection 434 = 405"
+"2","+20"
+"2","+9"
+"2"," (level 0) ... "
+"2","
+198.0 Mbytes of cons cells used (66%)
+"
+"2","95.4 Mbytes of vectors used (81%)
+"
+"2","Garbage collection 435 = 405"
+"2","+21"
+"2","+9"
+"2"," (level 1) ... "
+"2","
+196.1 Mbytes of cons cells used (65%)
+"
+"2","91.1 Mbytes of vectors used (77%)
+"
+"2","Garbage collection 436 = 406"
+"2","+21"
+"2","+9"
+"2"," (level 0) ... "
+"2","
+199.6 Mbytes of cons cells used (66%)
+"
+"2","100.2 Mbytes of vectors used (85%)
+"
+"2","Garbage collection 437 = 406"
+"2","+22"
+"2","+9"
+"2"," (level 1) ... "
+"2","
+198.7 Mbytes of cons cells used (66%)
+"
+"2","95.4 Mbytes of vectors used (81%)
+"
+"2","Garbage collection 438 = 406"
+"2","+22"
+"2","+10"
+"2"," (level 2) ... "
+"2","
+192.7 Mbytes of cons cells used (64%)
+"
+"2","88.1 Mbytes of vectors used (62%)
+"
+"2","Garbage collection 439 = 407"
+"2","+22"
+"2","+10"
+"2"," (level 0) ... "
+"2","
+197.1 Mbytes of cons cells used (66%)
+"
+"2","95.9 Mbytes of vectors used (68%)
+"
+"2","Garbage collection 440 = 408"
+"2","+22"
+"2","+10"
+"2"," (level 0) ... "
+"2","
+201.2 Mbytes of cons cells used (67%)
+"
+"2","99.9 Mbytes of vectors used (70%)
+"
+"2","Garbage collection 441 = 409"
+"2","+22"
+"2","+10"
+"2"," (level 0) ... "
+"2","
+203.2 Mbytes of cons cells used (68%)
+"
+"2","103.8 Mbytes of vectors used (73%)
+"
+"2","Garbage collection 442 = 410"
+"2","+22"
+"2","+10"
+"2"," (level 0) ... "
+"2","
+203.5 Mbytes of cons cells used (68%)
+"
+"2","110.5 Mbytes of vectors used (78%)
+"
+"2","Garbage collection 443 = 411"
+"2","+22"
+"2","+10"
+"2"," (level 0) ... "
+"2","
+203.5 Mbytes of cons cells used (68%)
+"
+"2","117.7 Mbytes of vectors used (83%)
+"

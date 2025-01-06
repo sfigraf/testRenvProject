@@ -1,5 +1,102 @@
 "0","start_time <- Sys.time()"
+"0","library(renv)"
+"2","
+Attaching package: ‘renv’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    embed, update
+
+"
+"2","The following objects are masked from ‘package:utils’:
+
+    history, upgrade
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    autoload, load, remove, use
+
+"
+"0","gcinfo(TRUE)"
+"1","[1]"
+"1"," FALSE"
+"1","
+"
 "0","source(""global.R"")"
+"2","Garbage collection 407 = 384"
+"2","+18"
+"2","+5"
+"2"," (level 0) ... "
+"2","
+59.9 Mbytes of cons cells used (63%)
+"
+"2","22.0 Mbytes of vectors used (34%)
+"
+"2","Garbage collection 408 = 385"
+"2","+18"
+"2","+5"
+"2"," (level 0) ... "
+"2","
+65.6 Mbytes of cons cells used (69%)
+"
+"2","23.4 Mbytes of vectors used (36%)
+"
+"2","Garbage collection 409 = 386"
+"2","+18"
+"2","+5"
+"2"," (level 0) ... "
+"2","
+67.4 Mbytes of cons cells used (71%)
+"
+"2","23.8 Mbytes of vectors used (37%)
+"
+"2","Garbage collection 410 = 387"
+"2","+18"
+"2","+5"
+"2"," (level 0) ... "
+"2","
+69.8 Mbytes of cons cells used (73%)
+"
+"2","24.3 Mbytes of vectors used (38%)
+"
+"2","Garbage collection 411 = 388"
+"2","+18"
+"2","+5"
+"2"," (level 0) ... "
+"2","
+73.8 Mbytes of cons cells used (77%)
+"
+"2","25.3 Mbytes of vectors used (39%)
+"
+"2","Garbage collection 412 = 389"
+"2","+18"
+"2","+5"
+"2"," (level 0) ... "
+"2","
+74.6 Mbytes of cons cells used (78%)
+"
+"2","25.5 Mbytes of vectors used (40%)
+"
+"2","Garbage collection 413 = 390"
+"2","+18"
+"2","+5"
+"2"," (level 0) ... "
+"2","
+77.3 Mbytes of cons cells used (81%)
+"
+"2","26.2 Mbytes of vectors used (41%)
+"
+"2","Garbage collection 414 = 390"
+"2","+18"
+"2","+6"
+"2"," (level 2) ... "
+"2","
+75.4 Mbytes of cons cells used (51%)
+"
+"2","24.0 Mbytes of vectors used (37%)
+"
 "2","Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE
 "
 "2","Loading required package: rjags
@@ -23,9 +120,36 @@ Attaching package: ‘R2jags’
   method        from  
   as.mcmc.rjags R2jags
 "
+"2","Garbage collection 415 = 391"
+"2","+18"
+"2","+6"
+"2"," (level 0) ... "
+"2","
+89.5 Mbytes of cons cells used (60%)
+"
+"2","27.1 Mbytes of vectors used (42%)
+"
 "2","Loading required package: fields
 "
 "2","Loading required package: spam
+"
+"2","Garbage collection 416 = 392"
+"2","+18"
+"2","+6"
+"2"," (level 0) ... "
+"2","
+96.3 Mbytes of cons cells used (65%)
+"
+"2","28.7 Mbytes of vectors used (45%)
+"
+"2","Garbage collection 417 = 393"
+"2","+18"
+"2","+6"
+"2"," (level 0) ... "
+"2","
+97.8 Mbytes of cons cells used (66%)
+"
+"2","29.7 Mbytes of vectors used (46%)
 "
 "2","Spam version 2.11-0 (2024-10-03) is loaded.
 Type 'help( Spam)' or 'demo( spam)' for a short introduction 
@@ -93,6 +217,15 @@ Attaching package: ‘lattice’
 "
 "2","Loading required package: grid
 "
+"2","Garbage collection 418 = 394"
+"2","+18"
+"2","+6"
+"2"," (level 0) ... "
+"2","
+102.2 Mbytes of cons cells used (69%)
+"
+"2","30.8 Mbytes of vectors used (48%)
+"
 "2","
 Attaching package: ‘vcd’
 
@@ -109,6 +242,15 @@ Attaching package: ‘vcd’
 "2","Registered S3 method overwritten by 'data.table':
   method           from
   print.data.table     
+"
+"2","Garbage collection 419 = 395"
+"2","+18"
+"2","+6"
+"2"," (level 0) ... "
+"2","
+105.0 Mbytes of cons cells used (71%)
+"
+"2","31.5 Mbytes of vectors used (49%)
 "
 "2","rgeos version: 0.6-4, (SVN revision 699)
  GEOS runtime version: 3.12.2-CAPI-1.18.2 
@@ -137,6 +279,42 @@ Attaching package: ‘spsurvey’
 "
 "2","Loading required package: parallel
 "
+"2","Garbage collection 420 = 396"
+"2","+18"
+"2","+6"
+"2"," (level 0) ... "
+"2","
+115.0 Mbytes of cons cells used (77%)
+"
+"2","33.6 Mbytes of vectors used (52%)
+"
+"2","Garbage collection 421 = 397"
+"2","+18"
+"2","+6"
+"2"," (level 0) ... "
+"2","
+131.5 Mbytes of cons cells used (88%)
+"
+"2","37.9 Mbytes of vectors used (59%)
+"
+"2","Garbage collection 422 = 397"
+"2","+19"
+"2","+6"
+"2"," (level 1) ... "
+"2","
+134.9 Mbytes of cons cells used (91%)
+"
+"2","38.1 Mbytes of vectors used (59%)
+"
+"2","Garbage collection 423 = 397"
+"2","+19"
+"2","+7"
+"2"," (level 2) ... "
+"2","
+142.8 Mbytes of cons cells used (48%)
+"
+"2","39.9 Mbytes of vectors used (52%)
+"
 "2","
 Attaching package: ‘Matrix’
 
@@ -152,6 +330,15 @@ Attaching package: ‘Matrix’
 
 "
 "2","Loading required package: rngtools
+"
+"2","Garbage collection 424 = 398"
+"2","+19"
+"2","+7"
+"2"," (level 0) ... "
+"2","
+168.7 Mbytes of cons cells used (56%)
+"
+"2","46.1 Mbytes of vectors used (59%)
 "
 "2","Checking rgeos availability: TRUE
 "

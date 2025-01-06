@@ -1,15 +1,15 @@
 {
     "dialog-state": {
-        "query": "snapshot",
+        "query": "out",
         "path": "",
         "regex": false,
         "caseSensitive": false,
-        "wholeWord": false,
+        "wholeWord": true,
         "filePatterns": [],
         "useGitGrep": false,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 2,
+        "resultsCount": 153,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

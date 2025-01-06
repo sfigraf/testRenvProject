@@ -3,7 +3,7 @@
     "path": "~/testRenvProject/renv.lock",
     "project_path": "renv.lock",
     "type": "json",
-    "hash": "4258142952",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1735836081637.0,
@@ -16,11 +16,11 @@
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1734804220,
+    "lastKnownWriteTime": 1736191246,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1734804220,
+    "last_content_update": 1736191246,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -1,5 +1,13 @@
-#SOURCE FUNCTIONS
-source("~/testRenvProject/Source_Files/ArkFunctions.R")
+#This file contains all libraries, source functions, and variables needed to run the script
+
+library(renv)
+library(here)
+
+# SOURCE FUNCTIONS --------------------------------------------------------
+
+source(file.path(here(), "Source_Files/ArkFunctions.R"))
+
+# LIBRARIES ---------------------------------------------------------------
 
 #SCRIPT 1
 library(foreign) 
@@ -67,6 +75,9 @@ library(sf) # use instead of rgdal
 library(sp)
 library(ggplot2)
 
-#library(renv)
-#renv::activate()
-#renv::init()
+
+# VARIABLES ---------------------------------------------------------------
+
+#SCRIPT 8: 
+nStarts <- 2
+

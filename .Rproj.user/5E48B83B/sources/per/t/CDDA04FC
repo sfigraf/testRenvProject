@@ -3,7 +3,7 @@
     "path": "~/testRenvProject/testRMD.Rmd",
     "project_path": "testRMD.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "364799198",
     "contents": "",
     "dirty": false,
     "created": 1735250183372.0,
@@ -13,16 +13,16 @@
         "tempName": "Untitled2",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "7,0",
-        "scrollLine": "0",
-        "last_setup_crc32": "af9c8bee13cc2da8"
+        "cursorPosition": "101,91",
+        "scrollLine": "79",
+        "last_setup_crc32": ""
     },
     "folds": "",
-    "lastKnownWriteTime": 1735919924,
+    "lastKnownWriteTime": 1736209429,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1736187416868,
+    "last_content_update": 1736209429792,
     "read_only": false,
     "read_only_alternatives": []
 }

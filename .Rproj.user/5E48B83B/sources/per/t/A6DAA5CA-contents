@@ -178,8 +178,8 @@ qAll <- list()
 SitesAll <- list()
 
 # Setup parallel backend once outside the loops
-# cl <- makeCluster(nStarts, outfile = "")
-# registerDoParallel(cl)
+cl <- makeCluster(nStarts, outfile = "")
+registerDoParallel(cl)
 
 for (yr in 1:nYears) {
   qAll[[yr]] <- vector(length = nReps * nStarts)
@@ -187,8 +187,8 @@ for (yr in 1:nYears) {
   
   for (j in 1:nReps) {
     #setup parallel backend to use nStarts processors
-    cl <- makeCluster(nStarts)
-    registerDoParallel(cl)
+    # cl <- makeCluster(nStarts)
+    # registerDoParallel(cl)
     #qList <- list()
     #options(error=recover)
     set.seed(216 + j * 10 + yr * 100)
@@ -250,10 +250,11 @@ for (yr in 1:nYears) {
         all.q <- c(all.q, new_q)
       }
       #SG: confused on what happens to this list: just for displaying?
-      #not saved in a variable
+      #not saved in a variable, maybe I just don't understand it well enough
       list(all.q = all.q, allIndices = allIndices, 
            min.q = new_q, bestSites = previousIndex)
     }
+    
     
     qTmp <- list()
     for (s in 1:nStarts){
@@ -276,8 +277,8 @@ for (yr in 1:nYears) {
   
   #save.image("~/ArkAllSiteSelections.RData")
 }
-
 stopCluster(cl)
+
 
 
 

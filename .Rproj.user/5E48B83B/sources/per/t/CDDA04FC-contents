@@ -7,6 +7,7 @@ date: "2024-12-26"
 ```{r setup, include=FALSE, echo=TRUE}
 start_time <- Sys.time()
 library(renv)
+library(here)
 #gcinfo(TRUE)
 source("global.R")
 end_time <- Sys.time()
@@ -27,7 +28,7 @@ end_time <- Sys.time()
 start_time <- Sys.time()
 print("Script 2")
 source("R_Code/2_Ark_OrganizeDataNew.R")
-save.image("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
+save.image(file.path(here(), "Output_Files/2_OrganizeNewData/ArkData.Rdata"))
 
 end_time <- Sys.time()
 
@@ -50,7 +51,7 @@ end_time <- Sys.time()
 start_time <- Sys.time()
 print("Script 4")
 source("R_Code/4_RunModels.R")
-save.image("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData") # 
+save.image(file.path(here(), "Output_Files/4_RunModels/ArkInSampleModels.RData")) 
 
 end_time <- Sys.time()
 
@@ -83,7 +84,7 @@ end_time <- Sys.time()
 start_time <- Sys.time()
 print("Script 7")
 source("R_Code/7_SelectBalancedSites.R")
-save(BalancedSites, file="~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData")
+save(BalancedSites, file=file.path(here(), "Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData"))
 
 end_time <- Sys.time()
 
@@ -94,10 +95,11 @@ end_time <- Sys.time()
 ```{r Script8, include=FALSE, echo=TRUE}
 start_time <- Sys.time()
 print("Script 8")
+#R memory works better when rdata is reloaded so that's what we're doing here from saved workspace images
 rm(list = ls())
-base::load("~/testRenvProject/Output_Files/2_OrganizeNewData/ArkData.Rdata")
-base::load("~/testRenvProject/Output_Files/4_RunModels/ArkInSampleModels.RData")
-base::load("~/testRenvProject/Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData") # base::load("ArkBalancedSites.RData")
+base::load(file.path(here(), "Output_Files/2_OrganizeNewData/ArkData.Rdata"))
+base::load(file.path(here(), "Output_Files/4_RunModels/ArkInSampleModels.RData"))
+base::load(file.path(here(), "Output_Files/7_SelectBalancedSites/ArkBalancedSites.RData")) 
 
 source("R_Code/8_SelectOASDsites.R")
 end_time <- Sys.time()

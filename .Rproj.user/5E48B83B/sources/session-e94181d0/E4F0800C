@@ -1,0 +1,27 @@
+{
+    "id": "E4F0800C",
+    "path": "~/testRenvProject/masterRunscript.R",
+    "project_path": "masterRunscript.R",
+    "type": "r_source",
+    "hash": "1389051723",
+    "contents": "",
+    "dirty": false,
+    "created": 1735868667346.0,
+    "source_on_save": false,
+    "relative_order": 13,
+    "properties": {
+        "tempName": "Untitled2",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "4,16",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1738095083,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1738095083708,
+    "read_only": false,
+    "read_only_alternatives": []
+}

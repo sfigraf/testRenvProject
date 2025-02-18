@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "\"~/testRenvProject/",
+        "query": "STATUS",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": false,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 26,
+        "resultsCount": 104,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

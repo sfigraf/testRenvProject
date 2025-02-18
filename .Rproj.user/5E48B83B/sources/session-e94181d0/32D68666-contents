@@ -1,0 +1,8 @@
+
+
+datasub <- data[,c("WaterID", "WaterName", "Catch", "mySurveyID")]
+snapped_sitessub <- snapped_sites[,c("WaterID", "WaterName", "Catch", "mySurveyID")]
+
+difs <- left_join(snapped_sites, data,  by = c("Protocol", "Gear", "SampleDate", "Location", "Elevation", "UTMZone", "UTMX", "UTMY", "Basin", "AvgWidth", "SiteType", 
+                                              "SurveyID", "Status", "NewStatus",
+                  "sameStatus", "Catch", "Source", "mySurveyID"))

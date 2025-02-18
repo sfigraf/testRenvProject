@@ -50,9 +50,9 @@ library(sf)
 
 
 ### Import the data and source functions -----------------------
-load("/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_bwa/Output_Files/ArkData.RData")
+base::load("/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_bwa/Output_Files/ArkData.RData")
 source("/Volumes/CPW_Work/Optimum Sampling/Ark_Optimal_bwa/Source_Files/ArkFunctions.R")
-# load("~/ArkCrossVal/ArkData.RData")  # for server
+# base::load("~/ArkCrossVal/ArkData.RData")  # for server
 # source("~/ArkCrossVal/ArkFunctions.R")  # for server
 
 ## Use GRTS because of Basin characterics ------------

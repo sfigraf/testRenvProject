@@ -44,13 +44,31 @@ arkStreamNetwork2 <- st_transform(arkStreamNetwork1, latLongCRS) %>%
 
 #snapped sites ready to map
 
+##as Joined
+differences <- anti_join(as.data.frame(sitesAllSitesPOints1), snapped_sites, by = c("UTMX.y" = "UTMX", "UTMY.y" = "UTMY"))
+differencesSF <- st_as_sf(differences)
+# leaflet(arkStreamNetwork2) %>%
+#   addTiles() %>%
+#   addPolylines(
+#     popup = paste(
+#       "WaterBody:", arkStreamNetwork2$NAME1, "<br>"
+#     )
+#   ) 
+
 ###snappedSitesMapping
 snapped_sites1 <- st_transform(st_as_sf(snapped_sites, coords = c("UTMX", "UTMY"), crs = st_crs(arkStreamNetwork), remove = FALSE), 
-                               latLongCRS)
+                               latLongCRS) %>%
+  distinct(UTMX, UTMY, .keep_all = T)
+
 leaflet(arkStreamNetwork2) %>%
   addTiles() %>%
-  addPolylines() %>%
+  addPolylines(
+    popup = paste(
+      "WaterBody:", arkStreamNetwork2$NAME1, "<br>"
+    )
+  ) %>%
   addAwesomeMarkers(data = st_transform(sitesAllSitesPOints1, latLongCRS), 
+                    group = "Survey Sites",
                     icon = leaflet::awesomeIcons(
                       icon = 'add',
                       iconColor = 'black',
@@ -65,10 +83,111 @@ leaflet(arkStreamNetwork2) %>%
                       "UTMY:", sitesAllSitesPOints1$UTMY.y, "<br>"),
                     clusterOptions = markerClusterOptions()) %>%
   addAwesomeMarkers(data = snapped_sites1, 
+                    group = "Snapped Sites", 
                     popup = paste(
                       "SNAPPED SITES <br>",
                       "WaterBody:", snapped_sites1$WaterName, "<br>", 
                       "UTMX:", snapped_sites1$UTMX, "<br>", 
                       "UTMY:", snapped_sites1$UTMY, "<br>")
                     #clusterOptions = markerClusterOptions()
-                    )
+  ) %>%
+  addAwesomeMarkers(data = st_transform(differencesSF, latLongCRS),
+                    group = "Differences", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      iconColor = 'black',
+                      library = 'ion',
+                      #iconHeight = 20,
+                      markerColor = "orange"
+                    ), 
+                    popup = paste(
+                      "Survey Data Sites: NOT in Snapped Sites <br>",
+                      "WaterBody:", differencesSF$WaterName, "<br>", 
+                      "UTMX:", differencesSF$UTMX.y, "<br>", 
+                      "UTMY:", differencesSF$UTMY.y, "<br>"),
+                    clusterOptions = markerClusterOptions()
+  ) %>%
+  addAwesomeMarkers(data = st_transform(st_as_sf(stream_pts, coords = c("UTMX", "UTMY"), crs = st_crs(arkStreamNetwork), remove = FALSE), latLongCRS),
+                    group = "Stream Points", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      iconColor = 'black',
+                      library = 'ion',
+                      #iconHeight = 20,
+                      markerColor = "green"
+                    ), 
+                    popup = paste(
+                      "Stream Points <br>",
+                      "UTMX:", stream_pts$UTMX, "<br>", 
+                      "UTMY:", stream_pts$UTMY, "<br>"),
+                    clusterOptions = markerClusterOptions()
+  ) %>%
+  addLayersControl(overlayGroups = c("Survey Sites", "Snapped Sites", "Differences", "Stream Points")) %>%
+  hideGroup(c("Differences", "Stream Points"))
+  
+
+
+###making new df similar to snapped sites
+# cat(names(snapped_sites), sep = "', '")
+sitesAllSitesPOints2 <- as.data.frame(sitesAllSitesPOints1) %>%
+  rename(UTMX = UTMX.y, 
+         UTMY = UTMY.y)
+newNames <- c('SurveyPurpose', 'Protocol', 'Gear', 'TotalEffort', 'EffortMetric', 'WaterID', 'WaterName', 'SampleDate', 'Location', 
+              'Elevation', 'UTMZone', 'UTMX', 'UTMY', 'Basin', 'StationLength', 'AvgWidth', 'StationCode', 'SiteType', 'SurveyID', 
+              'SpeciesCode', 'Status', 'NewStatus', 'sameStatus', 'Catch', 'Source', 'mySurveyID')
+
+newSnappedSites <- sitesAllSitesPOints2 %>%
+  select(all_of(newNames))
+
+#####
+#this is allsites after it has been merged and wrnalged with streams and stream points in script 2
+
+allSitesWrangled <- all_sites
+#original 2016 snapped surveys
+#columns 20
+#
+
+#this stuff is all the snapped sites data wrangling
+## After comparing data to stream network, need to edit one site's location:
+newSnappedSites[newSnappedSites$SurveyID==43945, "UTMX"] <- 620287
+newSnappedSites[newSnappedSites$SurveyID==43945, "UTMY"] <- 4167592
+newSnappedSites[newSnappedSites$SurveyID==45532, "UTMX"] <- 620287
+newSnappedSites[newSnappedSites$SurveyID==45532, "UTMY"] <- 4167592
+#
+#names(newSnappedSites)
+# survey ID changed to Species Code
+#SG: 
+#
+names(newSnappedSites)[which(names(newSnappedSites) == "SpeciesCod")] <- "SpeciesCode"
+
+## Remove some sites that are still hanging around and shouldn't be:
+## Sites are repeated counts of other surveys, but slightly diff coords:
+#SG: changedSurveyID here to Species Code, but also code 25784 doesn't seem to even be in here
+newSnappedSites <- subset(newSnappedSites, !(SurveyID %in% c(25784, 23897)))
+# dim(newSnappedSites)  # 3197 obs.
+#
+
+## IF YOU GET TO END AND NEED TO REMOVE MORE SAMP OCCASIONS -------------
+# Run the "Ark_OrgSampOccForExport.R" on the new/updated data spreadsheet.
+# tmp1 <- include_dat[, c("mySurveyID", "Catch", 
+#                         "SpeciesCodee", "sameStatus")]
+# tmp2 <- newSnappedSites[, c("WaterName", "SampleDate", "UTMX", "UTMY",
+#                           "Source", "mySurveyID")]
+# tmp2$mySurveyID <- as.character(tmp2$mySurveyID)
+# tmp <- merge(tmp1, tmp2, all=T)
+# tmp <- unique(tmp)
+# tmp$mySurveyID <- as.factor(tmp$mySurveyID)
+# summary(tmp)
+# dim(tmp)
+# dim(include_dat)  # should match, then:
+# newSnappedSites <- tmp
+# -----------------------------------
+
+# Add covariate info associated with each sampled site: 
+# names(newSnappedSites)
+# names(all_sites)
+
+##with new joining, seems to work!!
+samp_datNew <- base::merge(all_sites, newSnappedSites)
+samp_datNew <- merge(newSnappedSites, all_sites)
+

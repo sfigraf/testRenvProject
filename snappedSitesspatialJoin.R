@@ -1,16 +1,19 @@
-##### bring in site/survey data from bios
+####SCRIPT TO "SNAP" DATA to Stream Network
+library(tidyverse)
+library(sf)
+library(leaflet)
+##### bring in site/survey data from Andy/Brian
 # this is what gets saved in script 1
 data <- read.csv("Input_Files/Cleaned_Data_include_dat_27Sept2024.csv", stringsAsFactors=F)
 
 #bring in Stream network: right now used to get correct coordinate system and check to make sure data is being snapped correctly
 arkStreamNetwork <- read_sf("ArcGIS_files/arkansasStreamNetwork.shp")
-#remove z element, not needed on 2d maps
+#remove z element, not needed on maps and causes a little errors 
 arkStreamNetwork1 <- st_zm(arkStreamNetwork, drop = TRUE, what = "ZM")
 #gets utms as columns
 arkStreamNetwork1 <- arkStreamNetwork1 %>%
   mutate(UTMX = st_coordinates(arkStreamNetwork1)[row_number(),1], 
          UTMY = st_coordinates(arkStreamNetwork1)[row_number(),2])
-
 #change data to sf object in preparation for spatial join with same crs as streamNetwork
 surveySitesSF <- st_as_sf(data, coords = c("UTMX", "UTMY"), crs = st_crs(arkStreamNetwork), remove = FALSE)
 
@@ -45,15 +48,10 @@ arkStreamNetwork2 <- st_transform(arkStreamNetwork1, latLongCRS) %>%
 #snapped sites ready to map
 
 ##as Joined
+#these are the differences in UTMs between OG data and new data
 differences <- anti_join(as.data.frame(sitesAllSitesPOints1), snapped_sites, by = c("UTMX.y" = "UTMX", "UTMY.y" = "UTMY"))
 differencesSF <- st_as_sf(differences)
-# leaflet(arkStreamNetwork2) %>%
-#   addTiles() %>%
-#   addPolylines(
-#     popup = paste(
-#       "WaterBody:", arkStreamNetwork2$NAME1, "<br>"
-#     )
-#   ) 
+
 
 ###snappedSitesMapping
 snapped_sites1 <- st_transform(st_as_sf(snapped_sites, coords = c("UTMX", "UTMY"), crs = st_crs(arkStreamNetwork), remove = FALSE), 
@@ -68,7 +66,7 @@ leaflet(arkStreamNetwork2) %>%
     )
   ) %>%
   addAwesomeMarkers(data = st_transform(sitesAllSitesPOints1, latLongCRS), 
-                    group = "Survey Sites",
+                    group = "Survey Sites (Post-Snap)",
                     icon = leaflet::awesomeIcons(
                       icon = 'add',
                       iconColor = 'black',
@@ -77,7 +75,7 @@ leaflet(arkStreamNetwork2) %>%
                       markerColor = "purple"
                     ), 
                     popup = paste(
-                      "Survey Data Sites <br>",
+                      "Survey Data Sites (Post-Snap) <br>",
                       "WaterBody:", sitesAllSitesPOints1$WaterName, "<br>", 
                       "UTMX:", sitesAllSitesPOints1$UTMX.y, "<br>", 
                       "UTMY:", sitesAllSitesPOints1$UTMY.y, "<br>"),
@@ -122,8 +120,23 @@ leaflet(arkStreamNetwork2) %>%
                       "UTMY:", stream_pts$UTMY, "<br>"),
                     clusterOptions = markerClusterOptions()
   ) %>%
-  addLayersControl(overlayGroups = c("Survey Sites", "Snapped Sites", "Differences", "Stream Points")) %>%
-  hideGroup(c("Differences", "Stream Points"))
+  addAwesomeMarkers(data = st_transform(surveySitesSF, latLongCRS), 
+                    group = "Survey Sites (Pre-Snap)", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      iconColor = 'black',
+                      library = 'ion',
+                      #iconHeight = 20,
+                      markerColor = "yellow"
+                    ), 
+                    popup = paste(
+                      "Survey Data Sites (Pre-Snap) <br>",
+                      "WaterBody:", surveySitesSF$WaterName, "<br>", 
+                      "UTMX:", surveySitesSF$UTMX, "<br>", 
+                      "UTMY:", surveySitesSF$UTMY, "<br>"),
+                    clusterOptions = markerClusterOptions()) %>%
+  addLayersControl(overlayGroups = c("Survey Sites (Post-Snap)", "Survey Sites (Pre-Snap)", "Snapped Sites", "Differences", "Stream Points")) %>%
+  hideGroup(c("Differences", "Stream Points", "Survey Sites (Pre-Snap)"))
   
 
 
@@ -188,6 +201,28 @@ newSnappedSites <- subset(newSnappedSites, !(SurveyID %in% c(25784, 23897)))
 # names(all_sites)
 
 ##with new joining, seems to work!!
+#these are the columns that automatically are merged
+#intersect(names(all_sites), names(newSnappedSites))
+
 samp_datNew <- base::merge(all_sites, newSnappedSites)
 samp_datNew <- merge(newSnappedSites, all_sites)
 
+
+##checking for difs
+difs <- anti_join(samp_datNew, samp_dat1, join_by(UTMX, UTMY))
+
+sampdatNew2 <- anti_join(samp_datNew, difs)
+
+samp_dat1 <- samp_dat %>%
+  rename(StationCode = StationCod, 
+         StationLength = StationLen, 
+         EffortMetric = EffortMetr, 
+         TotalEffort = TotalEffor, 
+         SurveyPurpose = SurveyPurp
+         )
+difs <- left_join(samp_datNew, samp_dat1, join_by(UTMX, UTMY, mySurveyID)) #, SurveyPurpose, Protocol, Gear, TotalEffort, EffortMetric
+difs <- difs %>%
+  select(order(colnames(.))) %>%
+  arrange(mySurveyID)
+
+names(difs)

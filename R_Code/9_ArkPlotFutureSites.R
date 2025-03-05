@@ -13,10 +13,10 @@ library(ggplot2)
 #
 
 # Get sites "SelectOASDsites.R" output:
-# base::load("~/Desktop/Fish_PostDoc/ArkansasR/ArkSelectSites/ArkAllSiteSelections.RData")
+#base::load("~/Desktop/Fish_PostDoc/ArkansasR/ArkSelectSites/ArkAllSiteSelections.RData")
 # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/write_up/FutureSites/")
 #SG: not loading .rdata bc it doesn't work as well in Rmarkdown. if all scripts ran in succession, shouldn't be a need to call .Rdata files
-#base::load("~/testRenvProject/Output_Files/8_SelectOASDsites/ArkAllSiteSelections.RData")
+base::load("~/testRenvProject/Output_Files/8_SelectOASDsites/ArkAllSiteSelections.RData")
 setwd(file.path(here(), "Output_Files/9_ArkPlotFutureSites"))
 
 # read_sf
@@ -183,11 +183,152 @@ write.csv(allSampSites,
 
 
 ############ Good Up to Here ################
+library(leaflet)
+#original Coord system for inital sf object making
+nativeCordinateSystem <- "+proj=utm +zone=13 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"
+#defining latLong crs for leaflet plotting
+latLongCRS <- st_crs("+proj=longlat +datum=WGS84 +no_defs") #should be same as +init=epsg:4326
+###2016
+ARKbalanced2016 <- subset(BalancedSites, panel=="Year1")
+
+ARKbalanced2016_sf <-  st_as_sf(ARKbalanced2016, coords = c("xcoord", "ycoord"), remove = FALSE)
+st_crs(ARKbalanced2016_sf) <- nativeCordinateSystem
 
 
+#transform to new crs for plotting with leaflet
+ARKbalanced2016_sf <- st_transform(ARKbalanced2016_sf, latLongCRS) 
+###2017
+ARKbalanced2017 <- subset(BalancedSites, panel=="Year2")# subset(balanced.spat, year==2017)
+ARKbalanced2017_sf <-  st_as_sf(ARKbalanced2017, coords = c("xcoord", "ycoord"), remove = FALSE)
+st_crs(ARKbalanced2017_sf) <- nativeCordinateSystem
+#transform to new crs for plotting with leaflet
+ARKbalanced2017_sf <- st_transform(ARKbalanced2017_sf, latLongCRS) 
 
+###2018
+ARKbalanced2018 <- subset(BalancedSites, panel=="Year3")# subset(balanced.spat, year==2017)
+ARKbalanced2018_sf <-  st_as_sf(ARKbalanced2018, coords = c("xcoord", "ycoord"), remove = FALSE)
+st_crs(ARKbalanced2018_sf) <- nativeCordinateSystem
+#transform to new crs for plotting with leaflet
+ARKbalanced2018_sf <- st_transform(ARKbalanced2018_sf, latLongCRS) 
 
+#optimal sites
+##2016
+optimal2016_sf <-  st_as_sf(optimal2016)
+#transform to new crs for plotting with leaflet
+optimal2016_sf <- st_transform(optimal2016_sf, latLongCRS) 
 
+##2017
+optimal2017_sf <-  st_as_sf(optimal2017)
+#transform to new crs for plotting with leaflet
+optimal2017_sf <- st_transform(optimal2017_sf, latLongCRS) 
+
+##2018
+optimal2018_sf <-  st_as_sf(optimal2018)
+#transform to new crs for plotting with leaflet
+optimal2018_sf <- st_transform(optimal2018_sf, latLongCRS) 
+
+##stream network 
+arkStreamNetwork <- read_sf(file.path(paste0(here(), "/ArcGIS_files/AsShapefiles/arkansasStreamNetwork.shp")))
+#remove z element, not needed on maps and causes a little errors 
+arkStreamNetwork1 <- st_zm(arkStreamNetwork, drop = TRUE, what = "ZM")
+arkStreamNetwork2 <- st_transform(arkStreamNetwork1, latLongCRS) 
+
+leaflet() %>%
+  addTiles(options = providerTileOptions(maxZoom = 100), group = "OSM") %>%
+  addProviderTiles(providers$Esri.WorldImagery,
+                   options = providerTileOptions(maxZoom = 100), 
+                   group = "Satellite"
+  ) %>%
+  addPolylines(data = arkStreamNetwork2,
+               group = "Stream Network", 
+    popup = paste(
+      "WaterBody:", arkStreamNetwork2$NAME1, "<br>"
+    )
+  ) %>%
+  addAwesomeMarkers(data = ARKbalanced2016_sf, 
+                    group = "ARKbalanced 2016", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      library = 'ion',
+                      markerColor = "blue"
+                    ), 
+                    popup = paste(
+                      "ARKbalanced 2016", "<br>", 
+                      "Point ID: ", ARKbalanced2016_sf$pointid, "<br>", 
+                      "UTMX:", ARKbalanced2016_sf$xcoord, "<br>",
+                      "UTMY:", ARKbalanced2016_sf$ycoord, "<br>"
+                    )
+                    ) %>%
+  addAwesomeMarkers(data = ARKbalanced2017_sf, 
+                    group = "ARKbalanced 2017", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      library = 'ion',
+                      markerColor = "orange"
+                    ), 
+                    popup = paste(
+                      "ARKbalanced 2017", "<br>", 
+                      "Point ID: ", ARKbalanced2017_sf$pointid, "<br>", 
+                      "UTMX:", ARKbalanced2017_sf$xcoord, "<br>",
+                      "UTMY:", ARKbalanced2017_sf$ycoord, "<br>"
+                    )
+                    ) %>%
+  addAwesomeMarkers(data = ARKbalanced2018_sf, 
+                    group = "ARKbalanced 2018", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      library = 'ion',
+                      markerColor = "green"
+                    ), 
+                    popup = paste(
+                      "ARKbalanced 2018", "<br>", 
+                      "Point ID: ", ARKbalanced2018_sf$pointid, "<br>", 
+                      "UTMX:", ARKbalanced2018_sf$xcoord, "<br>",
+                      "UTMY:", ARKbalanced2018_sf$ycoord, "<br>"
+                    )
+                    ) %>%
+  addAwesomeMarkers(data = optimal2016_sf, 
+                    group = "Optimal 2016", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      library = 'ion',
+                      markerColor = "cadetblue"
+                    ), 
+                    popup = paste(
+                      "Optimal 2016", "<br>", 
+                      "Site ID: ", optimal2016_sf$SiteID, "<br>", 
+                      "OASD ID:", optimal2016_sf$OASDid, "<br>"
+                    )
+  ) %>%
+  addAwesomeMarkers(data = optimal2017_sf, 
+                    group = "Optimal 2017", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      library = 'ion',
+                      markerColor = "red"
+                    ), 
+                    popup = paste(
+                      "Optimal 2017", "<br>", 
+                      "Site ID: ", optimal2017_sf$SiteID, "<br>", 
+                      "OASD ID:", optimal2017_sf$OASDid, "<br>"
+                    )
+  ) %>%
+  addAwesomeMarkers(data = optimal2018_sf, 
+                    group = "Optimal 2018", 
+                    icon = leaflet::awesomeIcons(
+                      icon = 'add',
+                      library = 'ion',
+                      markerColor = "purple"
+                    ), 
+                    popup = paste(
+                      "Optimal 2018", "<br>", 
+                      "Site ID: ", optimal2018_sf$SiteID, "<br>", 
+                      "OASD ID:", optimal2018_sf$OASDid, "<br>"
+                    )
+  ) %>%
+  addLayersControl(overlayGroups = c("Stream Network", "ARKbalanced 2016", "ARKbalanced 2017", "ARKbalanced 2018", "Optimal 2016", "Optimal 2017", "Optimal 2018"), 
+                   baseGroups = c("OSM", "Satellite"))
+  
 ## Check-out balanced sites in google Earth:
 # setwd("~/Dropbox/Fish_PostDoc/ArkansasR/write_up/FutureSites/")
 # ARKbalanced2016 <- subset(BalancedSites, panel=="Year1")# subset(balanced.spat, year==2016)

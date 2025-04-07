@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "STATUS",
+        "query": "SurveydesignStreams",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": false,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 104,
+        "resultsCount": 429,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

@@ -33,6 +33,7 @@
 # library(OpenStreetMap) # to get an underlying satellite image?
 
 # Set the directory to input files:
+library(here)
 setwd(here())
 
 ### STEP 1: Organize site-level info and covariates --------
@@ -122,11 +123,12 @@ pred_sites <- all_sites[seq(1, nrow(all_sites), 100), ]
 # Import the snapped locations to get correct covariate info:
 #survey data snapped to correct location in the river (
 #one that works is snapped data from july 6 2016
-#new snaped surveys that brian added doesn't work
+#new snapped surveys that brian added doesn't work
 #original 2016 snapped surveys
 #columns 20
 #
 snapped_sites <- foreign::read.dbf("Input_Files/snappedSurveys.dbf")
+snapped_sites <- newSnappedSites
 
 ## After comparing data to stream network, need to edit one site's location:
 snapped_sites[snapped_sites$SurveyID==43945, "UTMX"] <- 620287
@@ -137,7 +139,7 @@ snapped_sites[snapped_sites$SurveyID==45532, "UTMY"] <- 4167592
 #names(snapped_sites)
 # survey ID changed to Species Code
 #SG: 
-#
+names(snapped_sites)[which(names(snapped_sites) == "SpeciesCod")]
 names(snapped_sites)[20] <- "SpeciesCode"
 
 ## Remove some sites that are still hanging around and shouldn't be:
@@ -168,7 +170,7 @@ snapped_sites <- subset(snapped_sites, !(SurveyID %in% c(25784, 23897)))
 # names(all_sites)
 #SG: should samp_dat have data here?
 #left_join works, merge() doesnt...
-samp_dat <- base::merge(all_sites, snapped_sites)
+#samp_dat <- base::merge(all_sites, snapped_sites)
 samp_dat <- merge(snapped_sites, all_sites)
 #samp_dat <- left_join(all_sites, snapped_sites)
 
@@ -339,7 +341,7 @@ samp_dat <- subset(samp_dat, Source != "USGS")
 # dim(samp_dat) # 2645 
 
 ## Exclude sampling before 2008 to match South Platte:
-samp_dat <- subset(samp_dat, year >= 2008)
+samp_dat1 <- subset(samp_dat, year >= 2008)
 # dim(samp_dat) #2098  
 
 ## How many dipnet passes?
